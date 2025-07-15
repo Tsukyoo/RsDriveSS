@@ -822,7 +822,7 @@ body.video-done #video-intro {
     <h1 class="main-text" id="intro-text">RsDrive. Le luxe commence ici.</h1>
   </div>
   
-  <video id="intro-video" autoplay muted playsinline>
+  <video id="intro-video" muted autoplay playsinline preload="auto" webkit-playsinline>
   <source src="videos/pov-rsdrive.mp4" type="video/mp4">
   Votre navigateur ne supporte pas la vidéo.
 </video>
@@ -1090,18 +1090,25 @@ if (hamburgerMenu && mobileNav) {
   window.addEventListener('DOMContentLoaded', () => {
   const video = document.getElementById('intro-video');
 
-  // Tentative de lecture automatique sur mobile (nécessite muted + playsinline)
-  const playPromise = video.play();
+  // ✅ On tente la lecture toutes les 500ms jusqu'à succès
+  const tryPlay = () => {
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          // ✅ Lecture réussie
+          clearInterval(intervalId);
+        })
+        .catch((error) => {
+          // ⛔ Tentative échouée, on réessaie bientôt
+        });
+    }
+  };
 
-  if (playPromise !== undefined) {
-    playPromise.then(_ => {
-      // ✅ Lecture OK
-    }).catch(error => {
-      // ⛔ Autoplay bloqué, cacher le bouton play manuellement
-      video.controls = false;
-    });
-  }
+  // ✅ Relance toutes les 500ms jusqu’à ce que ça passe (souvent max 1 ou 2 essais suffisent)
+  const intervalId = setInterval(tryPlay, 500);
 });
+</script>
 </script>
 
 <script>
