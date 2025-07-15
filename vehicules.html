@@ -25,6 +25,34 @@
             padding: 0 20px;
         }
 
+.intro-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Cacher le GIF sur desktop */
+.desktop-only {
+  display: block;
+}
+.mobile-only {
+  display: none;
+}
+
+/* Affichage conditionnel */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+  .mobile-only {
+    display: block !important;
+  }
+}
+
+
         /* Header (Styles repris des autres pages) */
         .header {
             position: fixed;
@@ -816,16 +844,23 @@ body.video-done #video-intro {
     </style>
 </head>
 <body>
-    <div id="video-intro">
+   <div id="video-intro">
   <div class="video-text-overlay">
     <img src="images/logo.png" alt="Logo RsDrive" class="video-logo-watermark" id="rsdrive-logo">
     <h1 class="main-text" id="intro-text">RsDrive. Le luxe commence ici.</h1>
   </div>
-  
-  <video id="intro-video" muted autoplay playsinline preload="auto" webkit-playsinline>
-  <source src="videos/pov-rsdrive.mp4" type="video/mp4">
-  Votre navigateur ne supporte pas la vidéo.
-</video>
+
+  <!-- 🎥 Desktop version -->
+  <video id="intro-video" autoplay muted playsinline preload="auto" webkit-playsinline class="intro-media desktop-only">
+    <source src="videos/pov-rsdrive.mp4" type="video/mp4">
+    Votre navigateur ne supporte pas la vidéo.
+  </video>
+
+  <!-- 🖼️ Mobile GIF fallback -->
+  <img src="images/pov-rsdrive.gif" alt="Intro RsDrive" class="intro-media mobile-only" />
+
+  <div class="video-overlay"></div>
+</div>
   
   <div class="video-overlay"></div>
 </div>
