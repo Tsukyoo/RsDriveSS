@@ -1124,6 +1124,62 @@ if (hamburgerMenu && mobileNav) {
   });
 </script>
 
+<script>
+/* -------- AUTOPLAY MOBILE ROBUSTE -------- */
+(function () {
+  const video   = document.getElementById('intro-video');
+  const intro   = document.getElementById('video-intro');
+  const overlay = document.querySelector('.video-overlay');
+
+  if (!video) return;
+
+  /* 1) Assure les attributs nécessaires */
+  video.setAttribute('muted', 'true');
+  video.setAttribute('playsinline', 'true');
+  video.setAttribute('webkit-playsinline', 'true');   // ✅ iOS
+
+  /* 2) Fonction de lancement */
+  const tryPlay = () =>
+    video.play()
+      .then(() => clearInterval(retry))           // ✅ ça tourne
+      .catch(() => { /* encore bloqué ? on réessaie */ });
+
+  /* 3) Boucle toutes les 400 ms jusqu’à réussite max 6 fois */
+  const retry = setInterval(tryPlay, 400);
+  let attempts = 0;
+  const maxAttempts = 6;
+
+  /* Stoppe la boucle après 6 essais (≈ 2,4 s) */
+  const stopIfStuck = setInterval(() => {
+    if (++attempts >= maxAttempts) {
+      clearInterval(retry);          // On arrête
+      clearInterval(stopIfStuck);
+    }
+  }, 400);
+
+  /* 4) Fallback : premier geste utilisateur = lecture immédiate */
+  const kickOff = () => {
+    tryPlay();
+    window.removeEventListener('touchstart', kickOff);
+    window.removeEventListener('click',      kickOff);
+  };
+
+  window.addEventListener('touchstart', kickOff, { once: true });
+  window.addEventListener('click',      kickOff, { once: true });
+
+  /* 5) Animations d’intro (inchangées) */
+  window.addEventListener('load', () => {
+    intro.classList.add('zoom-in');
+    setTimeout(() => {
+      intro.classList.remove('zoom-in');
+      intro.classList.add('zoom-out');
+      overlay.classList.add('blur');
+    }, 1200);
+    setTimeout(() => document.body.classList.add('video-done'), 2100);
+  });
+})();
+</script>
+
 
 </body>
 </html>
