@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RsDrive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous"/>
+  <style>
+    /* 💡 Zone CSS à compléter pour tes sections : juste en dessous */
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* HEADER */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px 0;
+      z-index: 100;
+      transition: background-color 0.3s ease;
+    }
+
+    .header.scrolled {
+      background-color: #000;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 40px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+    }
+
+    .main-nav {
+      display: flex;
+    }
+
+    .main-nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-nav li {
+      margin-left: 30px;
+    }
+
+    .main-nav a {
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .main-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #E50914;
+      transition: width 0.3s ease;
+    }
+
+    .main-nav a:hover::after {
+      width: 100%;
+    }
+
+    .hamburger-menu {
+      display: none;
+      cursor: pointer;
+      padding: 10px;
+      border: none;
+      background: none;
+      outline: none;
+      z-index: 110;
+    }
+
+    .hamburger-menu span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #fff;
+      margin: 5px 0;
+      transition: 0.4s;
+    }
+
+    .main-nav-mobile {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      border-radius: 5px;
+      z-index: 105;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .main-nav-mobile ul {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-nav-mobile li {
+      margin: 10px 0;
+    }
+
+    .main-nav-mobile a {
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .main-nav-mobile a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      right: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #E50914;
+      transition: width 0.3s ease;
+    }
+
+    .main-nav-mobile a:hover::after {
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .main-nav {
+        display: none;
+      }
+
+      .hamburger-menu {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+      .footer-inner {
+    align-items: center !important;
+    text-align: center;
+  }
+
+  .footer-links ul,
+    .footer-social ul {
+        flex-direction: row !important; /* Forcer l'alignement horizontal */
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+  .footer-links li,
+  .footer-social li {
+    margin-bottom: 0;
+  }
+
+
+
+  .footer-contact {
+    text-align: center;
+  }
+
+  .footer-cities {
+    text-align: center;
+    margin-bottom: 15px;
+}
+}
+
+input[type="checkbox"] {
+  box-shadow: none;
+  outline: none;
+  accent-color: #e60000; /* Pour un style rouge moderne */
+}
+
+.footer-copyright {
+  margin-top: 30px;
+  font-size: 0.9em;
+  color: #777;
+}
+
+    /* FOOTER */
+    .footer {
+    background-color: #111;
+    padding: 50px 0;
+    color: #ccc;
+    text-align: center;
+}
+
+.footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.footer-cities {
+    margin-bottom: 15px;
+    font-size: 0.95em;
+    line-height: 1.6;
+    max-width: 300px;
+    color: #bbb;
+    font-style: italic;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-social ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0px;
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    color: #ccc;
+    font-size: 1.3em;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #fff;
+}
+
+.footer-contact p {
+    margin-bottom: 5px;
+}
+
+.footer-contact a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-contact a:hover {
+    color: #fff;
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+  .footer-contact {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-inner {
+    position: relative;
+    align-items: flex-start;
+  }
+
+  .footer-contact .footer-social {
+    margin-bottom: 10px;
+  }
+
+  .footer-contact .footer-social ul {
+    justify-content: center;
+  }
+
+  .footer-cities {
+    white-space: nowrap;
+  }
+}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="RsDrive Logo" class="logo-img"/>
+      </a>
+      <button class="hamburger-menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="reservation.html">Réservation</a></li>
+          <li><a href="vehicules.html">Véhicules</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <nav class="main-nav-mobile">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="reservation.html">Réservation</a></li>
+          <li><a href="vehicules.html">Véhicules</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ✨ Section ici ! ✨ -->
+   
+
+  <footer class="footer">
+    <div class="container footer-inner">
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Logo RsDrive" class="logo-img" />
+    </a>
+    <p class="footer-cities">Oyonnax, Bourg-en-Bresse, Lyon et aux alentours</p>
+
+    <div class="footer-links">
+        <ul>
+            <li><a href="reservation.html">Réservation</a></li>
+            <li><a href="vehicules.html">Nos véhicules</a></li>
+            <li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+    </div>
+
+    <!-- 👇 déplace ICI les réseaux sociaux -->
+    <div class="footer-contact">
+        <div class="footer-social">
+            <ul>
+                <li><a href="https://www.instagram.com/rs.drive01" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="https://www.snapchat.com/add/rs-drive01" target="_blank" aria-label="Snapchat"><i class="fab fa-snapchat-ghost"></i></a></li>
+            </ul>
+        </div>
+        <p>Téléphone : <a href="tel:+33622549395">+33 622549395</a></p>
+        <p>Email : <a href="mailto:contact@rsdrive.fr">contact@rsdrive.fr</a></p>
+    </div>
+
+    <p class="footer-copyright">&copy; 2025 RsDrive. Tous droits réservés.</p>
+</div>
+</footer>
+
+  <script>
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const mobileNav = document.querySelector('.main-nav-mobile');
+
+    if (hamburgerMenu && mobileNav) {
+      hamburgerMenu.addEventListener('click', () => {
+        mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
+      });
+    }
+
+    window.addEventListener('scroll', function () {
+      const header = document.querySelector('.header');
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+</html>

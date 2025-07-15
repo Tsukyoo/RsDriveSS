@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactez-nous - RsDrive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Styles CSS de base (seront externalisés dans style.css) */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent pour l'effet sticky */
+            padding: 20px 0;
+            z-index: 100;
+            transition: background-color 0.3s ease;
+        }
+
+        .header.scrolled {
+            background-color: #000;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Styles pour l'icône hamburger (mobile) */
+.hamburger-menu {
+    display: none; /* Caché par défaut sur les écrans plus larges */
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    background: none;
+    outline: none;
+    z-index: 110; /* Au-dessus du menu déroulant */
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: 0.4s;
+}
+
+/* Styles pour le menu déroulant (mobile) */
+.main-nav-mobile {
+    display: none; /* Caché par défaut */
+    position: absolute;
+    top: 60px; /* Ajuster en fonction de la hauteur du header */
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 105; /* Au-dessus du header */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.main-nav-mobile ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.main-nav-mobile li {
+    margin: 10px 0;
+}
+
+.main-nav-mobile li:first-child {
+    margin-top: 0;
+}
+
+.main-nav-mobile a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.main-nav-mobile a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #E50914;
+    transition: width 0.3s ease;
+}
+
+.main-nav-mobile a:hover::after {
+    width: 100%;
+}
+
+/* Modification du menu principal pour le cacher sur mobile */
+.main-nav {
+    display: flex; /* Rétablir l'affichage flex pour le bureau */
+}
+
+/* Media query pour afficher l'icône hamburger et cacher le menu principal sur mobile */
+@media (max-width: 768px) {
+    .main-nav {
+        display: none; /* Cacher le menu principal sur mobile */
+    }
+
+    .hamburger-menu {
+        display: block; /* Afficher l'icône hamburger sur mobile */
+    }
+
+    .header-inner {
+        justify-content: space-between; /* Aligner logo et hamburger */
+    }
+}
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .main-nav li {
+            margin-left: 30px;
+        }
+
+        .main-nav li:first-child {
+            margin-left: 0;
+        }
+
+        .main-nav a {
+            color: #fff;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #E50914;
+            transition: width 0.3s ease;
+        }
+
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Section Contact */
+        .contact-section {
+            padding: 120px 0 80px; /* Ajuster le padding haut */
+            text-align: center;
+        }
+
+        .contact-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: #fff;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .contact-title.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .logo-img {
+  height: 40px;
+  max-height: 50px;
+  width: auto;
+}
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+        }
+
+        .contact-grid.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-form {
+            background-color: #111;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ccc;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #222;
+            color: #fff;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: #E50914;
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+            cursor: pointer;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+        }
+
+        .btn-primary:hover {
+            background-color: #b8070f;
+            transform: scale(1.05);
+        }
+
+        .contact-details {
+            background-color: #111;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .contact-details h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .contact-details p {
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .contact-details a {
+            color: #E50914;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: #fff;
+        }
+
+        .social-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: left;
+        }
+
+        .social-button {
+    background-color: #222;
+    color: #ccc; /* Couleur du texte/de l'icône */
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em; /* Taille de l'icône */
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+        .social-button:hover {
+    background-color: #E50914;
+    color: #fff; /* Couleur de l'icône au survol */
+    transform: scale(1.1);
+}
+
+        .map-container {
+            margin-top: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s;
+        }
+
+        .map-container.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: 0;
+        }
+
+        /* Bloc "Être rappelé maintenant" */
+        .callback-section-contact {
+            background-color: #222;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+            border-radius: 8px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease 0.7s, transform 0.5s ease 0.7s;
+        }
+
+        .callback-section-contact.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .callback-icon-contact {
+            font-size: 2.5em;
+            color: #E50914;
+            margin-bottom: 20px;
+        }
+
+        .callback-text-contact {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+        }
+
+        .btn-callback-contact {
+            background-color: #E50914;
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+            cursor: pointer;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+        }
+
+        .btn-callback-contact:hover {
+            background-color: #b8070f;
+            transform: scale(1.05);
+        }
+
+        /* Footer (Styles repris des autres pages) */
+        .footer {
+    background-color: #111;
+    padding: 50px 0;
+    color: #ccc;
+    text-align: center;
+}
+
+.footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.footer-cities {
+    margin-bottom: 15px;
+    font-size: 0.95em;
+    line-height: 1.6;
+    max-width: 300px;
+    color: #bbb;
+    font-style: italic;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-social ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0px;
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    color: #ccc;
+    font-size: 1.3em;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #fff;
+}
+
+.footer-contact p {
+    margin-bottom: 5px;
+}
+
+.footer-contact a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-contact a:hover {
+    color: #fff;
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+  .footer-contact {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-inner {
+    position: relative;
+    align-items: flex-start;
+  }
+
+  .footer-contact .footer-social {
+    margin-bottom: 10px;
+  }
+
+  .footer-contact .footer-social ul {
+    justify-content: center;
+  }
+
+  .footer-cities {
+    white-space: nowrap;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+  .footer-inner {
+    align-items: flex-start;
+  }
+
+  .footer-top {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .desktop-cities {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .mobile-cities {
+    display: none;
+  }
+
+  .footer-contact-block {
+    align-items: flex-end;
+  }
+
+  .footer-social {
+    margin-bottom: 10px;
+  }
+
+  .footer-contact {
+    text-align: right;
+  }
+
+  .footer-bottom {
+    text-align: left;
+    width: 100%;
+  }
+}
+
+        /* Animations au scroll (CSS - classes définies dans index.html) */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .fade-in.animate {
+            opacity: 1;
+        }
+
+        .slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .slide-up.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Styles pour l'icône hamburger (mobile) */
+        .hamburger-menu {
+            display: none; /* Caché par défaut sur les écrans plus larges */
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            background: none;
+            outline: none;
+            z-index: 110; /* Au-dessus du menu déroulant */
+        }
+
+        .hamburger-menu span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+
+        /* Styles pour le menu déroulant (mobile) */
+        .main-nav-mobile {
+            display: none; /* Caché par défaut */
+            position: absolute;
+            top: 60px; /* Ajuster en fonction de la hauteur du header */
+            right: 20px; /* Aligné à droite */
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 105; /* Au-dessus du header */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            align-items: flex-end;
+        }
+
+        .main-nav-mobile ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .main-nav-mobile li {
+            margin: 10px 0;
+        }
+
+        .main-nav-mobile li:first-child {
+            margin-top: 0;
+        }
+
+        .main-nav-mobile a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .main-nav-mobile a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: auto; /* Important pour l'alignement à droite */
+            right: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #E50914;
+            transition: width 0.3s ease;
+        }
+
+        .main-nav-mobile a:hover::after {
+            width: 100%;
+        }
+
+        /* Modification du menu principal pour le cacher sur mobile */
+        .main-nav {
+            display: flex; /* Rétablir l'affichage flex pour le bureau */
+        }
+
+        /* Media query pour afficher l'icône hamburger et cacher le menu principal sur mobile */
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none; /* Cacher le menu principal sur mobile */
+            }
+
+            .hamburger-menu {
+                display: block; /* Afficher l'icône hamburger sur mobile */
+                position: absolute; /* Positionnement absolu pour le placer à droite */
+                top: 20px;      /* Ajuster la position verticale si nécessaire */
+                right: 20px;    /* Ajuster la position horizontale si nécessaire */
+            }
+
+            .header-inner {
+                /* On garde le space-between pour le logo à gauche */
+                align-items: center; /* Aligner verticalement le logo et le hamburger (si besoin) */
+            }
+
+            .footer-inner {
+    align-items: center !important;
+    text-align: center;
+  }
+
+  .footer-links ul,
+    .footer-social ul {
+        flex-direction: row !important; /* Forcer l'alignement horizontal */
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+  .footer-links li,
+  .footer-social li {
+    margin-bottom: 0;
+  }
+
+  .footer-contact {
+    text-align: center;
+  }
+
+  .footer-cities {
+    text-align: center;
+    margin-bottom: 15px;
+}
+}
+
+.footer-copyright {
+  margin-top: 30px;
+  font-size: 0.9em;
+  color: #777;
+}
+
+        @media (max-width: 768px) {
+            .footer-links ul,
+    .footer-social ul {
+        flex-direction: row !important; /* Forcer l'alignement horizontal */
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+  .footer-links li,
+  .footer-social li {
+    margin-bottom: 0;
+  }
+            
+            .contact-section {
+                padding-top: 100px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form, .contact-details {
+                padding: 30px;
+            }
+
+            .social-buttons {
+                justify-content: flex-start;
+            }
+
+            .map-container iframe {
+                height: 200px;
+            }
+
+            .callback-section-contact {
+                padding: 30px;
+                margin-top: 40px;
+            }
+
+            .footer-inner {
+                align-items: flex-start;
+            }
+
+            .footer-links ul, .footer-social ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-links li, .footer-social li {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+    <div class="container header-inner">
+        <a href="index.html" class="logo">
+            <img src="images/logo.png" alt="RsDrive Logo" class="logo-img">
+        </a>
+        <button class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="reservation.html">Réservation</a></li>
+                <li><a href="vehicules.html">Véhicules</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <nav class="main-nav-mobile">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="reservation.html">Réservation</a></li>
+                <li><a href="vehicules.html">Véhicules</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+    <section class="contact-section">
+        <div class="container">
+            <h2 class="contact-title">Contactez-nous</h2>
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <h3>Envoyez-nous un message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="nom">Nom</label>
+                            <input type="text" id="nom" name="nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Envoyer le message</button>
+                    </form>
+                </div>
+                <div class="contact-details">
+                    <h3>Nos coordonnées</h3>
+                    <p><i class="fas fa-phone"></i> Téléphone : <a href="tel:+330622549395">+33 0622549395</a></p>
+                    <p><i class="fas fa-envelope"></i> Email : <a href="mailto:contact@rs-drive.fr">contact@rs-drive.fr</a></p>
+                    <p><i class="fas fa-clock"></i> Horaires : 24/24h | 7/7J</p>
+                    <div class="social-buttons">
+    <a href="https://www.instagram.com/rs.drive01" target="_blank" class="social-button" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.snapchat.com/add/rs-drive01" target="_blank" class="social-button" aria-label="Snapchat">
+        <i class="fab fa-snapchat-ghost"></i>
+    </a>
+</div>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2797.479986763266!2d4.903108676849366!3d45.7578138710717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eb01c3e9999d%3A0x4084522a9d34b10!2sPlace%20Bellecour!5e0!3m2!1sfr!2sfr!4v1715948086849!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="callback-section-contact">
+                <i class="fas fa-phone-alt callback-icon-contact"></i>
+                <p class="callback-text-contact">Besoin d'une réponse rapide ?</p>
+                <a href="#" class="btn-callback-contact">Être rappelé maintenant</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+const hamburgerMenu = document.querySelector('.hamburger-menu');
+const mobileNav = document.querySelector('.main-nav-mobile');
+
+// Ajouter un écouteur d'événements pour basculer la classe 'open' sur le menu mobile
+if (hamburgerMenu && mobileNav) {
+    hamburgerMenu.addEventListener('click', () => {
+        mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
+    });
+}
+
+        // JavaScript pour l'effet sticky header et les animations au scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Animation au scroll pour les éléments de la page
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        const contactTitle = document.querySelector('.contact-title');
+        observer.observe(contactTitle);
+
+        const contactGrid = document.querySelector('.contact-grid');
+        observer.observe(contactGrid);
+
+        const mapContainer = document.querySelector('.map-container');
+        observer.observe(mapContainer);
+
+        const callbackSection = document.querySelector('.callback-section-contact');
+        observer.observe(callbackSection);
+    </script>
+<footer class="footer">
+    <div class="container footer-inner">
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Logo RsDrive" class="logo-img" />
+    </a>
+    <p class="footer-cities">Oyonnax, Bourg-en-Bresse, Lyon et aux alentours</p>
+
+    <div class="footer-links">
+        <ul>
+            <li><a href="reservation.html">Réservation</a></li>
+            <li><a href="vehicules.html">Nos véhicules</a></li>
+            <li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+    </div>
+
+    <!-- 👇 déplace ICI les réseaux sociaux -->
+    <div class="footer-contact">
+        <div class="footer-social">
+            <ul>
+                <li><a href="https://www.instagram.com/rs.drive01" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="https://www.snapchat.com/add/rs-drive01" target="_blank" aria-label="Snapchat"><i class="fab fa-snapchat-ghost"></i></a></li>
+            </ul>
+        </div>
+        <p>Téléphone : <a href="tel:+33622549395">+33 622549395</a></p>
+        <p>Email : <a href="mailto:contact@rsdrive.fr">contact@rsdrive.fr</a></p>
+    </div>
+
+    <p class="footer-copyright">&copy; 2025 RsDrive. Tous droits réservés.</p>
+</div>
+</footer>
+</body>
+</html>

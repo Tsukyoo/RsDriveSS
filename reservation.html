@@ -1,0 +1,2158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réservez votre voiture de rêve - RsDrive</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* Styles spécifiques à la page de réservation */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .hero-reservation {
+            background-image: url('images/reservation-bg.jpg'); /* Remplacez par l'URL de votre image */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 120px 20px;
+            position: relative;
+        }
+
+        .hero-overlay {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px; /* ✅ Ajouté */
+    padding-bottom: 60px; /* ✅ Ajouté */
+}
+
+        .hero-reservation h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-reservation p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .btn-primary {
+    display: inline-block;
+    background-color: #E50914;
+    color: #fff;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.btn-primary.animate {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.btn-primary:hover {
+    background-color: #b8070f;
+}
+
+        .reservation-steps {
+            padding: 60px 20px;
+            text-align: center;
+            background-color: #1a1a1a;
+        }
+
+        .steps-container {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .step {
+            flex: 1 1 250px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #262626;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step i {
+            font-size: 2em;
+            color: #E50914;
+            margin-bottom: 15px;
+        }
+
+        .step h3 {
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #eee;
+        }
+
+        .reservation-form-section {
+            padding: 60px 20px;
+            background-color: #0d0d0d;
+        }
+
+        .reservation-form-container {
+            max-width: 700px;
+            margin: 30px;
+            background-color: #1a1a1a;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            color: #fff;
+        }
+
+        .reservation-form-container .form-group:last-of-type {
+    margin-bottom: 10px; /* Ajoute ou ajuste cette valeur pour la marge souhaitée */
+}
+
+        .form-group label {
+            display: block;
+            color: #ddd;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="date"],
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #262626;
+            color: #fff;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group select option {
+            background-color: #262626;
+            color: #fff;
+        }
+
+        .form-group input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+        }
+
+       /* Section Contact */
+        .contact-section {
+            padding: 120px 0 80px; /* Ajuster le padding haut */
+            text-align: center;
+        }
+
+        .contact-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: #fff;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .contact-title.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+        }
+
+        .contact-grid.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-form {
+            background-color: #111;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ccc;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #222;
+            color: #fff;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+        }
+
+        .reservation-form-container button[type="submit"].btn-primary {
+            display: inline-block;
+            background-color: #E50914;
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+            cursor: pointer;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            margin-top: 20px; /* Si tu avais ajouté ça, tu peux le garder ou l'ajuster */
+    margin-bottom: 30px; /* Ajoute ou ajuste cette valeur pour la marge souhaitée en dessous */
+        }
+
+        .btn-primary:hover {
+            background-color: #b8070f;
+            transform: scale(1.05);
+        }
+
+        .contact-details {
+            background-color: #111;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .contact-details h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .contact-details p {
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .contact-details a {
+            color: #E50914;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+
+/* Pour s'assurer que .reservation-hero est positionné */
+.reservation-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+
+        .contact-details a:hover {
+            color: #fff;
+        }
+
+        .social-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: left;
+        }
+
+        .social-button {
+            background-color: #222;
+            color: #ccc;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease-in-out;
+        }
+
+        .social-button:hover {
+            background-color: #E50914;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .map-container {
+            margin-top: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s;
+        }
+
+        .map-container.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: 0;
+        }
+
+        /* Bloc "Être rappelé maintenant" */
+        .callback-section-contact {
+            background-color: #222;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+            border-radius: 8px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease 0.7s, transform 0.5s ease 0.7s;
+        }
+
+        .callback-section-contact.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .callback-icon-contact {
+            font-size: 2.5em;
+            color: #E50914;
+            margin-bottom: 20px;
+        }
+
+        .callback-text-contact {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+        }
+
+        .btn-callback-contact {
+            background-color: #E50914;
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+            cursor: pointer;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+        }
+
+        .btn-callback-contact:hover {
+            background-color: #b8070f;
+            transform: scale(1.05);
+        }
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.scroll-indicator-wrapper {
+  text-align: center;
+  pointer-events: auto;
+  animation: fadeInUp 1.2s ease 1s forwards;
+  opacity: 0;
+}
+
+.scroll-text {
+  color: #fff;
+  font-size: 0.95em;
+  margin-bottom: 6px;
+  font-weight: 500;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+}
+
+.scroll-arrow {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-left: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+  transform: rotate(-45deg);
+  animation: bounceDown 2s infinite;
+}
+
+/* Animation */
+@keyframes bounceDown {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0) rotate(-45deg); }
+  40% { transform: translateY(8px) rotate(-45deg); }
+  60% { transform: translateY(4px) rotate(-45deg); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ✅ Responsive Mobile : Garde en bas du texte */
+@media screen and (max-width: 768px) {
+  .scroll-indicator {
+    position: static;
+    transform: none;
+    margin-top: 40px;
+  }
+}
+  
+/* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent pour l'effet sticky */
+            padding: 20px 0;
+            z-index: 100;
+            transition: background-color 0.3s ease;
+        }
+
+        .header.scrolled {
+            background-color: #000;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .main-nav li {
+            margin-left: 30px;
+        }
+
+        .main-nav li:first-child {
+            margin-left: 0;
+        }
+
+        .main-nav a {
+            color: #fff;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #E50914;
+            transition: width 0.3s ease;
+        }
+
+        .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+        /* Footer (Styles repris des autres pages) */
+.footer {
+    background-color: #111;
+    padding: 50px 0;
+    color: #ccc;
+    text-align: center;
+}
+
+.footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.footer-cities {
+    margin-bottom: 15px;
+    font-size: 0.95em;
+    line-height: 1.6;
+    max-width: 300px;
+    color: #bbb;
+    font-style: italic;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-social ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0px;
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    color: #ccc;
+    font-size: 1.3em;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #fff;
+}
+
+.footer-contact p {
+    margin-bottom: 5px;
+}
+
+.footer-contact a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-contact a:hover {
+    color: #fff;
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+  .footer-contact {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-inner {
+    position: relative;
+    align-items: flex-start;
+  }
+
+  .footer-contact .footer-social {
+    margin-bottom: 10px;
+  }
+
+  .footer-contact .footer-social ul {
+    justify-content: center;
+  }
+
+  .footer-cities {
+    white-space: nowrap;
+  }
+}
+
+        /* Styles pour l'icône hamburger (mobile) */
+.hamburger-menu {
+    display: none; /* Caché par défaut sur les écrans plus larges */
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    background: none;
+    outline: none;
+    z-index: 110; /* Au-dessus du menu déroulant */
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: 0.4s;
+}
+
+/* Styles pour le menu déroulant (mobile) */
+.main-nav-mobile {
+    display: none; /* Caché par défaut */
+    position: absolute;
+    top: 60px; /* Ajuster en fonction de la hauteur du header */
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 105; /* Au-dessus du header */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.main-nav-mobile ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.main-nav-mobile li {
+    margin: 10px 0;
+}
+
+.main-nav-mobile li:first-child {
+    margin-top: 0;
+}
+
+.main-nav-mobile a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.main-nav-mobile a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #E50914;
+    transition: width 0.3s ease;
+}
+
+.main-nav-mobile a:hover::after {
+    width: 100%;
+}
+
+/* Modification du menu principal pour le cacher sur mobile */
+.main-nav {
+    display: flex; /* Rétablir l'affichage flex pour le bureau */
+}
+
+/* Media query pour afficher l'icône hamburger et cacher le menu principal sur mobile */
+@media (max-width: 768px) {
+    .main-nav {
+        display: none; /* Cacher le menu principal sur mobile */
+    }
+
+    .hamburger-menu {
+        display: block; /* Afficher l'icône hamburger sur mobile */
+    }
+
+    .header-inner {
+        justify-content: space-between; /* Aligner logo et hamburger */
+    }
+
+    .footer-inner {
+    align-items: center !important;
+    text-align: center;
+  }
+
+  .footer-links ul,
+    .footer-social ul {
+        flex-direction: row !important; /* Forcer l'alignement horizontal */
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+  .footer-links li,
+  .footer-social li {
+    margin-bottom: 0;
+  }
+
+
+
+  .footer-contact {
+    text-align: center;
+  }
+
+  .footer-cities {
+    text-align: center;
+    margin-bottom: 15px;
+}
+}
+
+input[type="checkbox"] {
+  box-shadow: none;
+  outline: none;
+  accent-color: #e60000; /* Pour un style rouge moderne */
+}
+
+.footer-copyright {
+  margin-top: 30px;
+  font-size: 0.9em;
+  color: #777;
+}
+
+
+.double-input {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.double-input > div {
+    flex: 1;
+    min-width: 150px;
+}
+
+.double-input input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #262626;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.double-input input[type="text"]:focus {
+    border-color: #E50914;
+    box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.4);
+    outline: none;
+}
+
+
+    </style>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+function setupTimeInput(inputId) {
+    const input = document.getElementById(inputId);
+
+    input.addEventListener("input", function () {
+        // Supprimer tout sauf les chiffres
+        let numbers = input.value.replace(/\D/g, '');
+
+        // Ajouter le : automatiquement après deux chiffres
+        if (numbers.length >= 3) {
+            input.value = numbers.slice(0, 2) + ':' + numbers.slice(2, 4);
+        } else {
+            input.value = numbers;
+        }
+    });
+
+    input.addEventListener("keydown", function (e) {
+        // Autoriser seulement les touches utiles
+        const allowedKeys = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"];
+        if (
+            !/[0-9]/.test(e.key) &&
+            !allowedKeys.includes(e.key)
+        ) {
+            e.preventDefault();
+        }
+    });
+}
+
+setupTimeInput("heure_reception");
+setupTimeInput("heure_depot");
+</script>
+<body>
+   <header class="header">
+    <div class="container header-inner">
+        <a href="index.html" class="logo">
+            <img src="images/logo.png" alt="RsDrive Logo" class="logo-img">
+        </a>
+        <button class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="reservation.html">Réservation</a></li>
+                <li><a href="vehicules.html">Véhicules</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <nav class="main-nav-mobile">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="reservation.html">Réservation</a></li>
+                <li><a href="vehicules.html">Véhicules</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+    <section class="reservation-hero">
+  <div class="container reservation-hero-inner">
+    <div class="reservation-text">
+      <h1 class="reservation-title slide-up">Réservez votre véhicule de rêve en 3 clics</h1>
+      <p class="reservation-subtitle fade-in">Simple, rapide, sécurisé. Votre luxe vous attend.</p>
+      <a href="vehicules.html" class="btn-reservation scale-in">
+  <i class="fas fa-car-side"></i> Choisir mon véhicule
+</a>
+    <div class="reservation-image"></div> <!-- L’image sera en CSS -->
+</div>
+<div class="scroll-indicator">
+    <div class="scroll-indicator-wrapper">
+      <p class="scroll-text">Faire une réservation directement</p>
+      <a href="#formulaire" class="scroll-arrow" aria-label="Aller à la réservation"></a>
+    </div>
+  </div>
+</section>
+
+
+<section id="formulaire" class="reservation-form-section">
+  <div class="container">
+    <h2 class="section-title fade-in">Réservez votre véhicule en 2 minutes</h2>
+    <p class="section-subtitle slide-up">Nous vous recontactons sous 24h avec une confirmation et les détails.</p>
+    <form class="reservation-form slide-up">
+      <div class="form-group">
+        <input type="text" placeholder="Prénom" required />
+        <input type="text" placeholder="Nom" required />
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="Email" required />
+        <input type="tel" placeholder="Téléphone" required />
+      </div>
+      <div class="form-group">
+        <input type="text" id="date-depart" placeholder="Date et heure de départ" required />
+        <input type="text" id="date-retour" placeholder="Date et heure de retour" required />
+      </div>
+      <div class="form-group">
+  <select id="vehicule-select" required>
+    <option value="">Véhicule souhaité</option>
+    <option value="rs3">Audi RS3</option>
+    <option value="golf8r">Golf 8R</option>
+    <option value="gle">Mercedes GLE</option>
+    <option value="classea">Classe A</option>
+    <option value="a45s">A45s</option>
+  </select>
+</div>
+      
+      <div class="form-group checkbox-group">
+  <label>
+    <input type="checkbox" id="livraison-checkbox">
+    Livraison du véhicule souhaitée (des frais s'appliquent)
+  </label>
+</div>
+
+<div id="livraison-details" class="livraison-hidden">
+  <input type="text" id="adresse-livraison" name="adresse-livraison" placeholder="Adresse de livraison">
+</div>
+
+      <textarea placeholder="Instructions particulières (optionnel)"></textarea>
+      <button type="submit" class="btn-submit">Envoyer ma demande</button>
+    </form>
+  </div>
+</section>
+
+    <section class="why-rsdrive-section animate-on-scroll">
+  <div class="container">
+    <h2 class="section-title">Pourquoi réserver avec RsDrive ?</h2>
+    <div class="advantages-grid">
+      <div class="advantage-card delay-1">
+        <div class="icon">🚗</div>
+        <h3>Assurance incluse</h3>
+        <p>Nos véhicules sont tous couverts, pour une location sereine.</p>
+      </div>
+      <div class="advantage-card delay-2">
+        <div class="icon">⏱️</div>
+        <h3>Réservation rapide</h3>
+        <p>Un formulaire simple, clair et ultra rapide.</p>
+      </div>
+      <div class="advantage-card delay-3">
+        <div class="icon">📞</div>
+        <h3>Support client 24/7</h3>
+        <p>Une assistance réactive et disponible à tout moment.</p>
+      </div>
+      <div class="advantage-card delay-4">
+        <div class="icon">🧼</div>
+        <h3>Nettoyage premium</h3>
+        <p>Nos véhicules sont désinfectés et contrôlés avant chaque départ.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="rsdrive-engagements">
+  <div class="container engagements-container">
+    <div class="engagements-image">
+      <img src="images/engagement-visuel.jpg" alt="Engagement RsDrive">
+    </div>
+    <div class="engagements-content">
+      <h2 class="section-title">Nos engagements RsDrive</h2>
+      <p class="section-subtitle">Nous vous garantissons bien plus qu’une simple location : une expérience premium et transparente.</p>
+
+      <ul class="engagements-list">
+        <li class="engagement-item animate-on-scroll delay-1">
+          <i class="fas fa-receipt"></i>
+          <div>
+            <h3>Transparence totale</h3>
+            <p>Aucun frais caché, tout est clair dès le début.</p>
+          </div>
+        </li>
+        <li class="engagement-item animate-on-scroll delay-2">
+          <i class="fas fa-shield-alt"></i>
+          <div>
+            <h3>Sécurité renforcée</h3>
+            <p>Chaque véhicule est contrôlé et désinfecté avant remise.</p>
+          </div>
+        </li>
+        <li class="engagement-item animate-on-scroll delay-3">
+          <i class="fas fa-handshake"></i>
+          <div>
+            <h3>Service premium</h3>
+            <p>Livraison possible, options personnalisées et accompagnement dédié.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<section class="faq-section">
+  <div class="container">
+   <h2 class="section-title fade-in">Foire Aux Questions (FAQ)</h2>
+   <div class="faq-grid">
+    <div class="faq-item slide-up">
+     <button class="faq-question">
+      <i class="fas fa-question-circle"></i>
+      <span>Quels sont les lieux de retrait disponibles pour la location ?</span>
+      <i class="fas fa-chevron-down"></i>
+     </button>
+     <div class="faq-answer">
+      <p>Vous pouvez récupérer votre véhicule dans notre agence a Oyonnax !</p>
+     </div>
+    </div>
+    <div class="faq-item slide-up">
+     <button class="faq-question">
+      <i class="fas fa-question-circle"></i>
+      <span>Puis-je modifier les dates de ma réservation après confirmation ?</span>
+      <i class="fas fa-chevron-down"></i>
+     </button>
+     <div class="faq-answer">
+      <p>Les modifications de réservation sont possibles sous certaines conditions et en fonction de la disponibilité. Veuillez contacter notre service client le plus tôt possible pour toute demande de modification.</p>
+     </div>
+    </div>
+    <div class="faq-item slide-up">
+     <button class="faq-question">
+      <i class="fas fa-question-circle"></i>
+      <span>Quels types de véhicules puis-je réserver ?</span>
+      <i class="fas fa-chevron-down"></i>
+     </button>
+     <div class="faq-answer">
+      <p>Nous proposons une variété de véhicules, incluant des berlines confortables, des SUV spacieux, des sportives élégantes et des modèles de luxe. Vous pouvez indiquer votre préférence lors de la réservation, et nous ferons de notre mieux pour la satisfaire en fonction de la disponibilité.</p>
+     </div>
+    </div>
+    <div class="faq-item slide-up">
+     <button class="faq-question">
+      <i class="fas fa-question-circle"></i>
+      <span>Comment la caution est-elle gérée ?</span>
+      <i class="fas fa-chevron-down"></i>
+     </button>
+     <div class="faq-answer">
+      <p>Une caution est requise au moment de la prise en charge du véhicule. Elle est généralement bloquée sur votre carte de crédit (Cash/Véhicule) et sera débloquée après la restitution du véhicule, sous réserve de l'absence de dommages.</p>
+     </div>
+    </div>
+    <div class="faq-item slide-up">
+ <button class="faq-question">
+  <i class="fas fa-question-circle"></i>
+  <span>Quels documents sont nécessaires pour louer un véhicule ?</span>
+  <i class="fas fa-chevron-down"></i>
+ </button>
+ <div class="faq-answer">
+  <p>Vous devez présenter une pièce d'identité valide, un permis de conduire en cours de validité et une caution bancaire, espèces ou véhicule.</p>
+ </div>
+</div>
+
+<div class="faq-item slide-up">
+ <button class="faq-question">
+  <i class="fas fa-question-circle"></i>
+  <span>Le kilométrage est-il limité ?</span>
+  <i class="fas fa-chevron-down"></i>
+ </button>
+ <div class="faq-answer">
+  <p>Oui, un forfait kilométrique est inclus dans chaque réservation. Au-delà, un tarif par kilomètre supplémentaire s'applique. Le détail est précisé dans votre contrat de location.</p>
+ </div>
+</div>
+
+<div class="faq-item slide-up">
+ <button class="faq-question">
+  <i class="fas fa-question-circle"></i>
+  <span>Est-il possible d’annuler une réservation ?</span>
+  <i class="fas fa-chevron-down"></i>
+ </button>
+ <div class="faq-answer">
+  <p>Oui, vous pouvez annuler sans frais jusqu’à 48h avant la date de départ. Passé ce délai, des frais d’annulation peuvent s’appliquer conformément à nos conditions générales de location.</p>
+ </div>
+</div>
+
+<div class="faq-item slide-up">
+ <button class="faq-question">
+  <i class="fas fa-question-circle"></i>
+  <span>Proposez-vous une livraison du véhicule ?</span>
+  <i class="fas fa-chevron-down"></i>
+ </button>
+ <div class="faq-answer">
+  <p>Oui, la livraison est possible à domicile, à l’hôtel ou en gare dans certaines zones géographiques. Ce service peut entraîner un supplément. Contactez-nous pour vérifier la disponibilité.</p>
+ </div>
+</div>
+  </div>
+ </section>
+    
+<footer class="footer">
+    <div class="container footer-inner">
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Logo RsDrive" class="logo-img" />
+    </a>
+    <p class="footer-cities">Oyonnax, Bourg-en-Bresse, Lyon et aux alentours</p>
+
+    <div class="footer-links">
+        <ul>
+            <li><a href="reservation.html">Réservation</a></li>
+            <li><a href="vehicules.html">Nos véhicules</a></li>
+            <li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+    </div>
+
+    <!-- 👇 déplace ICI les réseaux sociaux -->
+    <div class="footer-contact">
+        <div class="footer-social">
+            <ul>
+                <li><a href="https://www.instagram.com/rs.drive01" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="https://www.snapchat.com/add/rs-drive01" target="_blank" aria-label="Snapchat"><i class="fab fa-snapchat-ghost"></i></a></li>
+            </ul>
+        </div>
+        <p>Téléphone : <a href="tel:+33622549395">+33 622549395</a></p>
+        <p>Email : <a href="mailto:contact@rsdrive.fr">contact@rsdrive.fr</a></p>
+    </div>
+
+    <p class="footer-copyright">&copy; 2025 RsDrive. Tous droits réservés.</p>
+</div>
+</footer>
+
+
+
+
+    <script>
+function enforceHourFormat(input) {
+    input.addEventListener("input", function () {
+        let raw = input.value.replace(/\D/g, ""); // Supprime tout sauf chiffres
+        if (raw.length > 4) raw = raw.slice(0, 4);
+
+        let hours = raw.slice(0, 2);
+        let minutes = raw.slice(2);
+
+        // Validation des heures et minutes
+        if (hours.length === 2) {
+            let h = parseInt(hours, 10);
+            if (isNaN(h) || h > 23) {
+                hours = "23";
+            }
+        }
+
+        if (minutes.length === 2) {
+            let m = parseInt(minutes, 10);
+            if (isNaN(m) || m > 59) {
+                minutes = "59";
+            }
+        }
+
+        let formatted = hours;
+        if (minutes.length > 0) formatted += "h" + minutes;
+
+        input.value = formatted;
+    });
+
+    input.addEventListener("keydown", function (e) {
+        const allowedKeys = ["Backspace", "ArrowLeft", "ArrowRight", "Tab"];
+        if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
+            e.preventDefault();
+        }
+    });
+}
+
+enforceHourFormat(document.getElementById("heure_reception"));
+enforceHourFormat(document.getElementById("heure_depot"));
+</script>
+
+<style>
+  /* Styles pour la section FAQ (cohérents avec le reste du site) */
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.fade-in.animate {
+    opacity: 1;
+}
+
+.slide-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #fff;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #e60000;
+  box-shadow: 0 0 5px rgba(230, 0, 0, 0.5);
+}
+
+.adresse-label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #ccc;
+}
+
+
+ /* nvl section 5 */
+.rsdrive-engagements {
+  padding: 80px 20px;
+  background: linear-gradient(120deg, #000000, #000000);
+  color: #fff;
+}
+
+.engagements-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+.engagements-image img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+
+.engagements-content {
+  max-width: 600px;
+}
+
+.rsdrive-engagements .section-title {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.rsdrive-engagements .section-subtitle {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 30px;
+}
+
+.engagements-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.engagement-item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s ease;
+}
+
+.engagement-item i {
+  font-size: 1.6rem;
+  color: #ff3b3b;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.engagement-item h3 {
+  margin: 0 0 5px;
+  font-size: 1.1rem;
+}
+
+.engagement-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #bbb;
+}
+
+/* Responsive layout */
+@media(min-width: 1024px) {
+  .engagements-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .engagements-image {
+    flex: 1;
+    padding-right: 40px;
+  }
+
+  .engagements-content {
+    flex: 1;
+  }
+}
+
+/* Animation */
+.animate-on-scroll.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
+
+
+
+
+
+.vehicles-section {
+  background-color: #000;
+  padding: 80px 0;
+  color: #fff;
+  text-align: center;
+}
+
+.vehicles-title {
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.filter-buttons {
+  margin-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.filter-button {
+  background-color: #111;
+  color: #ccc;
+  border: 1px solid #333;
+  padding: 12px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.filter-button:hover,
+.filter-button.active {
+  background-color: #E50914;
+  color: #fff;
+  border-color: #E50914;
+}
+
+.vehicles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.vehicle-card {
+  background-color: #111;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.why-rsdrive-section {
+  padding: 80px 20px;
+  background: #111;
+  color: #fff;
+  text-align: center;
+}
+
+.why-rsdrive-section .section-title {
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+}
+
+.advantages-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+/* Animation de luxe au scroll */
+@keyframes rsFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Appliquer l'animation */
+.advantage-card {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.advantage-card.animate {
+  animation: rsFadeUp 0.8s ease forwards;
+}
+
+/* Optionnel : décalage progressif pour effet cascade */
+.advantage-card.delay-1 { animation-delay: 0.1s; }
+.advantage-card.delay-2 { animation-delay: 0.3s; }
+.advantage-card.delay-3 { animation-delay: 0.5s; }
+.advantage-card.delay-4 { animation-delay: 0.7s; }
+
+.livraison-hidden {
+  display: none;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  flex: 1;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 6px;
+  background-color: #111;
+  color: white;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.livraison-visible {
+  opacity: 1;
+  max-height: 200px; /* valeur adaptée */
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+
+.advantage-card {
+  background: rgba(255,255,255,0.05);
+  padding: 30px;
+  border-radius: 16px;
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.767);
+}
+
+.advantage-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 12px rgba(0, 0, 0, 0.082);
+}
+
+.advantage-card .icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+@media (min-width: 600px) {
+  .advantages-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .advantages-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.vehicle-card:hover {
+  transform: translateY(-5px);
+}
+
+.vehicle-image-container {
+  position: relative;
+}
+
+.vehicle-image {
+  width: 100%;
+  display: block;
+}
+
+.vehicle-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.vehicle-card:hover .vehicle-overlay {
+  opacity: 1;
+}
+
+.btn-voir-plus {
+  background-color: #E50914;
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.vehicle-details {
+  padding: 20px;
+}
+
+.vehicle-name {
+  font-size: 1.2em;
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+
+.vehicle-price {
+  color: #aaa;
+}
+
+@media (max-width: 768px) {
+  .filter-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.checkbox-delivery {
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.delivery-details {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+
+.delivery-details.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* Animations scroll */
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.slide-up {
+  transform: translateY(30px);
+  transition: transform 0.8s ease;
+}
+
+.fade-in.animate,
+.slide-up.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-up.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+  .faq-section {
+   padding: 80px 20px;
+   background-color: #1a1a1a; /* Fond sombre */
+   color: #fff;
+   text-align: center;
+  }
+
+  .faq-grid {
+   max-width: 960px;
+   margin: 40px auto 0;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+   gap: 30px;
+  }
+
+  .faq-item {
+   background-color: #262626; /* Fond des items légèrement plus clair */
+   border-radius: 8px;
+   overflow: hidden;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Léger relief */
+  }
+
+  .faq-question {
+   background-color: transparent;
+   color: #eee;
+   padding: 20px;
+   width: 100%;
+   border: none;
+   text-align: left;
+   font-family: 'Poppins', sans-serif; /* Police Poppins */
+   font-size: 1em;
+   font-weight: 500;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   transition: background-color 0.3s ease; /* Animation survol */
+  }
+
+  .faq-question:hover {
+   background-color: #333; /* Survol légèrement plus clair */
+  }
+
+  .faq-question i {
+   margin-right: 15px;
+   color: #E50914; /* Couleur rouge RsDrive */
+   font-size: 1.2em;
+  }
+
+  .faq-question span {
+   flex-grow: 1;
+  }
+
+.reservation-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.315); /* Couche noire à 20% */
+  z-index: 1;
+}
+
+.reservation-hero {
+  position: relative;
+  background: url('images/hero-reservation.jpg') center/cover no-repeat;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  color: white;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.reservation-hero .reservation-hero-inner {
+  position: relative;
+  z-index: 2; /* Contenu au-dessus du fond + overlay */
+}
+
+.reservation-hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2); /* Couche noire à 20% */
+  z-index: 1;
+}
+
+
+
+.reservation-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.reservation-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  animation: slideUp 1s ease forwards;
+  opacity: 0;
+}
+
+.reservation-subtitle {
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  margin-bottom: 30px;
+  animation: fadeIn 1.2s ease forwards;
+  opacity: 0;
+}
+
+.btn-reservation {
+  padding: 15px 35px;
+  font-size: 1rem;
+  background: #ff3b3b;
+  color: white;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  animation: scaleIn 1.4s ease forwards;
+  opacity: 0;
+}
+
+.btn-reservation:hover {
+  background: #e13131;
+  transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Responsive */
+@media (min-width: 1024px) {
+  .reservation-hero-inner {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .reservation-title {
+    font-size: 3rem;
+  }
+
+  .reservation-subtitle {
+    font-size: 1.2rem;
+  }
+}
+
+/* Section Formulaire Réservation */
+.reservation-form-section {
+  padding: 80px 20px;
+  background-color: #0a0a0a;
+  color: #fff;
+  text-align: center;
+}
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  animation: fadeInUp 0.6s ease forwards;
+}
+.section-subtitle {
+  font-size: 1rem;
+  margin-bottom: 40px;
+  color: #ccc;
+  animation: fadeInUp 0.8s ease forwards;
+}
+.reservation-form {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.form-group {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.reservation-form input,
+.reservation-form select,
+.reservation-form textarea {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background-color: #111;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.reservation-form input:focus,
+.reservation-form select:focus,
+.reservation-form textarea:focus {
+  outline: none;
+  border-color: #e509147e;
+  box-shadow: 0 0 8px #e509142d;
+}
+.reservation-form textarea {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+}
+.btn-submit {
+  background-color: #e50914;
+  color: white;
+  border: none;
+  padding: 14px 40px;
+  margin-top: 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-submit:hover {
+  background-color: #ff1a1a;
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(229, 9, 20, 0.24);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form-group {
+    flex-direction: column;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .reservation-hero-inner {
+    flex-direction: column;
+  }
+
+  .reservation-image {
+    width: 100%;
+    height: 250px;
+    margin-top: 30px;
+  }
+
+  .reservation-text {
+    text-align: center;
+  }
+}
+
+/* Animations au scroll */
+.slide-up.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in.animate {
+  opacity: 1;
+}
+
+.scale-in.animate {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+  .faq-answer {
+   padding: 0 20px 20px;
+   color: #ccc;
+   font-size: 0.95em;
+   line-height: 1.6;
+   max-height: 0;
+   overflow: hidden;
+   transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out; /* Animation ouverture/fermeture */
+  }
+
+  .faq-answer ul {
+   padding-left: 20px;
+   margin-bottom: 15px;
+  }
+
+  .faq-answer li {
+   list-style-type: disc;
+   margin-bottom: 5px;
+  }
+
+  /* Style pour l'icône de la question et de la réponse */
+  .faq-question .fa-question-circle {
+   margin-right: 15px;
+  }
+
+  .faq-question .fa-chevron-down {
+   margin-left: 15px;
+   transition: transform 0.3s ease-in-out; /* Animation rotation chevron */
+  }
+
+  .faq-item.open .faq-question .fa-chevron-down {
+   transform: rotate(180deg);
+  }
+
+  .faq-item.open .faq-answer {
+   max-height: 500px; /* Ajustez selon le contenu le plus long */
+   padding: 20px;
+  }
+
+  /* Réutilisation des classes d'animation */
+  .fade-in {
+   opacity: 0;
+   transition: opacity 0.5s ease;
+  }
+
+  .fade-in.animate {
+   opacity: 1;
+  }
+
+  .slide-up {
+   opacity: 0;
+   transform: translateY(30px);
+   transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .slide-up.animate {
+   opacity: 1;
+   transform: translateY(0);
+  }
+
+  /* Responsive design pour la grille FAQ */
+  @media (max-width: 768px) {
+   .faq-grid {
+    grid-template-columns: 1fr;
+   }
+  }
+ </style>
+
+
+
+ <script>
+  document.addEventListener('DOMContentLoaded', function() {
+   const faqItems = document.querySelectorAll('.faq-item');
+
+   faqItems.forEach(item => {
+    const questionButton = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+
+    questionButton.addEventListener('click', function() {
+     item.classList.toggle('open');
+    });
+   });
+
+   
+
+   // Animation au scroll (similaire à ce que tu as déjà)
+   const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+     if (entry.isIntersecting) {
+      entry.target.classList.add('animate');
+      observer.unobserve(entry.target); // Une seule animation
+     }
+    });
+   }, { threshold: 0.2 });
+
+   const faqTitle = document.querySelector('.faq-section .section-title');
+   if (faqTitle) observer.observe(faqTitle);
+
+   const faqQuestions = document.querySelectorAll('.faq-item');
+   faqQuestions.forEach(question => {
+    observer.observe(question);
+   });
+  });
+ </script>
+
+<script>
+// Filtres dynamiques
+const filterButtons = document.querySelectorAll(".filter-button");
+const vehicleCards = document.querySelectorAll(".vehicle-card");
+
+filterButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelector(".filter-button.active")?.classList.remove("active");
+    button.classList.add("active");
+
+    const filter = button.getAttribute("data-filter");
+
+    vehicleCards.forEach(card => {
+      const category = card.getAttribute("data-category");
+      card.style.display = filter === "all" || filter === category ? "block" : "none";
+    });
+  });
+});
+
+// Animation au scroll
+const section = document.querySelector(".vehicles-section");
+const vehicleObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("animate");
+        }
+    });
+}, { threshold: 0.2 });
+
+vehicleObserver.observe(section);
+</script>
+
+
+<script>
+// Sélectionner l'icône hamburger et le menu mobile
+const hamburgerMenu = document.querySelector('.hamburger-menu');
+const mobileNav = document.querySelector('.main-nav-mobile');
+
+// Ajouter un écouteur d'événements pour basculer la classe 'open' sur le menu mobile
+if (hamburgerMenu && mobileNav) {
+    hamburgerMenu.addEventListener('click', () => {
+        mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
+    });
+}
+
+// Sticky Header (le reste de votre script existant pour le header sticky reste inchangé)
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('.header');
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+// Intersection Observer pour les animations (le reste de votre script existant pour les animations reste inchangé)
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+        }
+    });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.slide-up, .fade-in, .scale-in').forEach(el => observer.observe(el));
+const elementsToAnimate = document.querySelectorAll('.hero h1, .btn-primary, .description-section, .features-section, .vehicle-pricing');
+elementsToAnimate.forEach(element => {
+    observer.observe(element);
+});
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+          observer.unobserve(entry.target); // une seule fois
+        }
+      });
+    }, { threshold: 0.2 });
+
+    // Observer les éléments à animer
+    const elementsToAnimate = document.querySelectorAll('.fade-in, .slide-up, .btn-primary.animate');
+    elementsToAnimate.forEach(el => observer.observe(el));
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+<script>
+  const dateDepartPicker = flatpickr("#date-depart", {
+    enableTime: true,
+    time_24hr: true,
+    dateFormat: "d/m/Y H:i",
+    minDate: "today",
+    locale: "fr",
+    onChange: function(selectedDates, dateStr, instance) {
+      if (selectedDates.length > 0) {
+        const departDate = selectedDates[0];
+        dateRetourPicker.set('minDate', new Date(departDate.getTime() + 60 * 60 * 1000)); // +1h
+      }
+    }
+  });
+
+  const dateRetourPicker = flatpickr("#date-retour", {
+    enableTime: true,
+    time_24hr: true,
+    dateFormat: "d/m/Y H:i",
+    minDate: "today",
+    locale: "fr"
+  });
+</script>
+<script>
+    // Animation au scroll
+const animobserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("animate");
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => animobserver.observe(el));
+
+</script>
+
+<script>
+const advantageCards = document.querySelectorAll('.advantage-card');
+const luxuryObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate');
+    }
+  });
+}, { threshold: 0.3 });
+
+advantageCards.forEach(card => luxuryObserver.observe(card));
+</script>
+
+
+<script>
+    // Nouvelle section 5
+const scrollItems = document.querySelectorAll('.animate-on-scroll');
+const animaobserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate');
+    }
+  });
+}, { threshold: 0.2 });
+
+scrollItems.forEach(el => animaobserver.observe(el));
+</script>
+
+<script>
+  const checkbox = document.getElementById('livraison-checkbox');
+  const livraisonDetails = document.getElementById('livraison-details');
+
+  checkbox.addEventListener('change', function () {
+    if (checkbox.checked) {
+      livraisonDetails.classList.add('livraison-visible');
+      livraisonDetails.classList.remove('livraison-hidden');
+    } else {
+      livraisonDetails.classList.add('livraison-hidden');
+      livraisonDetails.classList.remove('livraison-visible');
+    }
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const vehiculeParam = urlParams.get('vehicule'); // ex : rs3
+
+    if (vehiculeParam) {
+      const select = document.getElementById('vehicule-select');
+      if (select) {
+        const optionToSelect = Array.from(select.options).find(option =>
+          option.value.toLowerCase() === vehiculeParam.toLowerCase()
+        );
+        if (optionToSelect) {
+          optionToSelect.selected = true;
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

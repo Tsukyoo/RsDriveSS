@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RsDrive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous"/>
+  <style>
+    /* 💡 Zone CSS à compléter pour tes sections : juste en dessous */
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-up.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+    /* HEADER */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px 0;
+      z-index: 100;
+      transition: background-color 0.3s ease;
+    }
+
+    .header.scrolled {
+      background-color: #000;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 40px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+    }
+
+    .main-nav {
+      display: flex;
+    }
+
+    .main-nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-nav li {
+      margin-left: 30px;
+    }
+
+    .main-nav a {
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .main-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #E50914;
+      transition: width 0.3s ease;
+    }
+
+    .main-nav a:hover::after {
+      width: 100%;
+    }
+
+    .hamburger-menu {
+      display: none;
+      cursor: pointer;
+      padding: 10px;
+      border: none;
+      background: none;
+      outline: none;
+      z-index: 110;
+    }
+
+    .hamburger-menu span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #fff;
+      margin: 5px 0;
+      transition: 0.4s;
+    }
+
+    .main-nav-mobile {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      border-radius: 5px;
+      z-index: 105;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .main-nav-mobile ul {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-nav-mobile li {
+      margin: 10px 0;
+    }
+
+    .main-nav-mobile a {
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .main-nav-mobile a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      right: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #E50914;
+      transition: width 0.3s ease;
+    }
+
+    .main-nav-mobile a:hover::after {
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .main-nav {
+        display: none;
+      }
+
+      .hamburger-menu {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+
+      .footer-inner {
+    align-items: center !important;
+    text-align: center;
+  }
+
+  .footer-links ul,
+    .footer-social ul {
+        flex-direction: row !important; /* Forcer l'alignement horizontal */
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+  .footer-links li,
+  .footer-social li {
+    margin-bottom: 0;
+  }
+
+
+
+  .footer-contact {
+    text-align: center;
+  }
+
+  .footer-cities {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.footer-copyright {
+  margin-top: 30px;
+  font-size: 0.9em;
+  color: #777;
+}
+}
+
+
+    /* CSS SECTION 1 */
+    .product-hero {
+  position: relative;
+  height: 100vh;
+  background: url('images/rs3-cover.jpg') center center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+.product-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8));
+  z-index: 1;
+}
+
+.product-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 20px;
+}
+
+.product-title {
+  font-size: 3.2em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.product-subtitle {
+  font-size: 1.3em;
+  color: #ccc;
+  margin-bottom: 30px;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.3s;
+}
+
+.product-specs {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.6s;
+}
+
+.product-specs li {
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 0.95em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-reserve {
+  background-color: #E50914;
+  color: #fff;
+  padding: 15px 30px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease 0.9s, transform 0.5s ease 0.9s;
+}
+
+.btn-reserve:hover {
+  background-color: #b8070f;
+}
+
+/* Animations au scroll (reprennent ton système existant) */
+.slide-up.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in.animate {
+  opacity: 1;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .product-title {
+    font-size: 2.2em;
+  }
+
+  .product-subtitle {
+    font-size: 1em;
+  }
+
+  .product-specs {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin: 30px 0;
+    padding: 0 20px;
+  }
+}
+
+.product-hero.modern-luxe {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.product-hero.modern-luxe::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('images/rs3-luxe.jpg'); /* Ton image haut de gamme */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.4) contrast(1.1);
+  z-index: 0;
+  transition: transform 1s ease;
+}
+
+.product-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 20px;
+  backdrop-filter: blur(4px); /* Verre flouté chic */
+  background-color: rgba(0, 0, 0, 0.35); /* Ombre semi-transparente */
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+.product-title {
+  font-size: 3.2em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.product-subtitle {
+  font-size: 1.3em;
+  color: #ccc;
+  margin-bottom: 30px;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.3s;
+}
+
+.product-specs {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.6s;
+}
+
+.product-specs li {
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 0.95em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(2px);
+}
+
+.product-specs li i {
+    font-size: 1.1em;
+    width: 24px;
+    text-align: center;
+    color: #fff;
+    opacity: 0.9;
+  }
+
+.product-specs li:hover {
+    transform: scale(1.01);
+    background-color: rgba(255, 255, 255, 0.09);
+  }
+
+.btn-reserve {
+  background-color: #E50914;
+  color: #fff;
+  padding: 15px 30px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease 0.9s, transform 0.5s ease 0.9s;
+}
+
+.btn-reserve:hover {
+  background-color: #b8070f;
+}
+
+/* Animations */
+.slide-up.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in.animate {
+  opacity: 1;
+}
+
+/* Mobile responsive */
+@media screen and (max-width: 768px) {
+  .product-title {
+    font-size: 2.2em;
+  }
+
+  .product-subtitle {
+    font-size: 1em;
+  }
+
+  .product-specs {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-hero-content {
+    margin: 0 15px;
+    padding: 20px;
+  }
+}
+
+/* CSS SECTION 2 */
+.rs3-presentation {
+  padding: 100px 0;
+  background-color: #0a0a0a;
+  color: #fff;
+}
+
+.rs3-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.rs3-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.rs3-main-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(24, 24, 24, 0.3);
+}
+
+.rs3-thumbnails {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.rs3-thumbnails img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.rs3-thumbnails img:hover {
+  transform: scale(1.05);
+}
+
+.rs3-content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.rs3-title {
+  font-size: 2.2em;
+  font-weight: bold;
+  color: #fff;
+}
+
+.rs3-description {
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.rs3-specs {
+  list-style: none;
+  padding: 0;
+  color: #eee;
+}
+
+.rs3-specs li {
+  margin-bottom: 10px;
+  font-size: 1em;
+}
+
+.rs3-specs i {
+  color: #E50914;
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .rs3-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rs3-thumbnails {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .rs3-thumbnails img {
+    width: 70px;
+    height: 50px;
+  }
+}
+
+/* CSS SECTION 3 */
+.product-pricing {
+  padding: 80px 20px;
+  background-color: #111;
+  color: #fff;
+}
+
+.pricing-columns {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.pricing-card {
+  background-color: #1c1c1c;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 30px;
+  flex: 1 1 30%;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+}
+
+.pricing-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.pricing-infos-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* Chaque bloc prend 48% sur desktop */
+@media (min-width: 769px) {
+  .pricing-block {
+    flex: 1 1 48%;
+    max-width: 48%;
+  }
+}
+
+.pricing-block {
+  background-color: #1a1a1a;
+  border: 1px solid #818181;
+  border-radius: 12px;
+  padding: 25px 30px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  box-sizing: border-box;
+  flex: 1 1 calc(50% - 15px);
+  max-width: calc(50% - 15px);
+  transition: transform 0.3s ease;
+}
+
+.pricing-block:hover {
+  transform: translateY(-4px);
+}
+
+.pricing-block i {
+  font-size: 1.8em;
+  color: #E50914;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.pricing-block .icon {
+  font-size: 2em;
+  color: #e50914;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.pricing-block .text h3 {
+  margin: 0 0 15px;
+  font-size: 1.3em;
+  color: #fff;
+}
+
+.pricing-block h4 {
+  font-size: 1.3em;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.pricing-block .text ul {
+  list-style: none;
+  padding-left: 0;
+  color: #ccc;
+  font-size: 0.95em;
+  margin: 0;
+}
+
+.pricing-block ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pricing-block ul li {
+  margin-bottom: 8px;
+  color: #ccc;
+  font-size: 0.95em;
+}
+
+.option-note {
+  font-size: 0.85em;
+  color: #aaa;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.note {
+  color: #e50914;
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pricing-infos-wrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .pricing-block {
+    flex: 1 1 100%;
+    max-width: 100%;
+    flex-direction: row;
+    padding: 20px;
+  }
+}
+
+
+.pricing-price {
+  font-size: 2em;
+  font-weight: bold;
+  color: #e50914;
+}
+
+.pricing-info {
+  color: #aaa;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+.pricing-includes,
+.pricing-options {
+  margin-bottom: 40px;
+}
+
+.inclusion-title {
+  font-size: 1.6em;
+  margin-bottom: 20px;
+  border-left: 4px solid #e50914;
+  padding-left: 15px;
+}
+
+.pricing-includes ul,
+.pricing-options ul {
+  list-style: none;
+  padding: 0;
+}
+
+.pricing-includes li,
+.pricing-options li {
+  margin-bottom: 12px;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+}
+
+.pricing-includes i,
+.pricing-options i {
+  margin-right: 10px;
+  color: #e50914;
+}
+
+.option-note {
+  font-size: 0.85em;
+  color: #bbb;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.note {
+  color: #e50914;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .pricing-columns {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .pricing-card {
+    flex: 1 1 100%;
+  }
+}
+
+/* CSS SECTION 4 */
+/* === Section Conditions & Documents Requis === */
+.conditions-section {
+  background-color: #0a0a0a;
+  padding: 80px 20px;
+  color: #fff;
+  position: relative;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: #ccc;
+  max-width: 700px;
+  margin: 0 auto 50px;
+  font-size: 1.1em;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  padding-left: 20px;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.timeline-item.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline-bullet {
+  background-color: #E50914;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1em;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.4);
+}
+
+.timeline-content h3 {
+  margin: 0 0 5px;
+  font-size: 1.2em;
+  color: #fff;
+}
+
+.timeline-content p {
+  margin: 0;
+  color: #bbb;
+  font-size: 0.95em;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .timeline-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .timeline-bullet {
+    margin-bottom: 10px;
+  }
+
+  .timeline-content h3 {
+    font-size: 1.1em;
+  }
+}
+
+
+
+    /* FOOTER */
+    .footer {
+    background-color: #111;
+    padding: 50px 0;
+    color: #ccc;
+    text-align: center;
+}
+
+.footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.footer-cities {
+    margin-bottom: 15px;
+    font-size: 0.95em;
+    line-height: 1.6;
+    max-width: 300px;
+    color: #bbb;
+    font-style: italic;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+.footer-social ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0px;
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    color: #ccc;
+    font-size: 1.3em;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #fff;
+}
+
+.footer-contact p {
+    margin-bottom: 5px;
+}
+
+.footer-contact a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-contact a:hover {
+    color: #fff;
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+  .footer-contact {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-inner {
+    position: relative;
+    align-items: flex-start;
+  }
+
+  .footer-contact .footer-social {
+    margin-bottom: 10px;
+  }
+
+  .footer-contact .footer-social ul {
+    justify-content: center;
+  }
+
+  .footer-cities {
+    white-space: nowrap;
+  }
+}
+  </style>
+</head>
+<body>
+  
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="RsDrive Logo" class="logo-img"/>
+      </a>
+      <button class="hamburger-menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="reservation.html">Réservation</a></li>
+          <li><a href="vehicules.html">Véhicules</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <nav class="main-nav-mobile">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="reservation.html">Réservation</a></li>
+          <li><a href="vehicules.html">Véhicules</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ✨ SECTION 1 ✨ -->
+<section class="product-hero modern-luxe">
+  <div class="container product-hero-content">
+    <h1 class="product-title slide-up">Audi RS3 Berline</h1>
+    <p class="product-subtitle fade-in">Puissance, élégance et performance réunies dans une icône sportive.</p>
+
+    <ul class="product-specs fade-in">
+      <li><i class="fas fa-cogs"></i> Boîte automatique</li>
+      <li><i class="fas fa-road"></i> 4 roues motrices</li>
+      <li><i class="fas fa-users"></i> 5 places</li>
+      <li><i class="fas fa-gas-pump"></i> Essence</li>
+      <li><i class="fas fa-tachometer-alt"></i> 400 ch</li>
+      <li><i class="fas fa-calendar"></i> 2025</li>
+    </ul>
+<section id="formulaire" class="reservation-form-section"></section>
+    <a href="reservation.html?vehicule=rs3#formulaire" class="btn-reserve slide-up">
+  <i class="fas fa-calendar-check"></i> Réserver ce véhicule
+</a>
+  </div>
+</section>
+
+<!-- ✨ SECTION 2 – Galerie + Présentation RS3 ✨ -->
+<section class="section rs3-presentation">
+  <div class="container rs3-grid">
+    <!-- Galerie d’images -->
+    <div class="rs3-gallery slide-up">
+      <div class="rs3-main-image">
+        <img src="images/rs3/rs3_main.jpg" alt="Audi RS3 principale">
+      </div>
+      <div class="rs3-thumbnails">
+        <img src="images/rs3/rs3_thumb1.jpg" alt="Audi RS3 vue 1">
+        <img src="images/rs3/rs3_thumb2.jpg" alt="Audi RS3 vue 2">
+        <img src="images/rs3/rs3_thumb3.jpg" alt="Audi RS3 vue 3">
+      </div>
+    </div>
+
+    <!-- Description & caractéristiques -->
+    <div class="rs3-content slide-up">
+      <h2 class="rs3-title">L’Audi RS3 – Sportivité, élégance et puissance</h2>
+      <p class="rs3-description">
+        Avec son moteur 5 cylindres de 400ch, la RS3 incarne la fusion parfaite entre performance brute et finition haut de gamme.
+        Son look agressif, sa sonorité envoûtante et ses technologies embarquées en font une référence dans le segment des compactes sportives.
+      </p>
+
+      <ul class="rs3-specs">
+        <li><i class="fas fa-tachometer-alt"></i> 400ch – 0 à 100 km/h en 3,8s</li>
+        <li><i class="fas fa-cogs"></i> Boîte S-Tronic 7 rapports</li>
+        <li><i class="fas fa-volume-up"></i> Ligne d’échappement sport</li>
+        <li><i class="fas fa-map-marker-alt"></i> GPS intégré & Audi Virtual Cockpit</li>
+        <li><i class="fas fa-wifi"></i> Connectivité Apple CarPlay / Android Auto</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ✨ SECTION 3 – Tarifs / Inclusion / Offres supplémentaires ✨ -->
+ <section class="product-pricing section">
+  <div class="container">
+    <h2 class="section-title slide-up">Tarifs & Inclusions</h2>
+    <div class="pricing-columns fade-in">
+      <div class="pricing-card fade-up">
+  <h3 class="pricing-title">1 jour</h3>
+  <p class="pricing-price">299€</p>
+</div>
+
+<div class="pricing-card fade-up">
+  <h3 class="pricing-title">Week-end</h3>
+  <p class="pricing-price">749€</p>
+  <p class="pricing-info">(Vendredi à lundi)</p>
+</div>
+
+<div class="pricing-card fade-up">
+  <h3 class="pricing-title">7 jours</h3>
+  <p class="pricing-price">1 999€</p>
+</div>
+    </div>
+
+    <div class="pricing-infos-wrapper fade-in">
+  <div class="pricing-block">
+    <i class="fas fa-check-circle"></i>
+    <div>
+      <h4>Inclus dans l’offre</h4>
+      <ul>
+        <li>Assurance tous risques</li>
+        <li>Assistance 24h/24</li>
+        <li>Conducteur additionnel inclus</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pricing-block">
+    <i class="fas fa-plus-circle"></i>
+    <div>
+      <h4>Options supplémentaires</h4>
+      <ul>
+        <li>300km inclus par jour</li>
+        <li>50€ les 100km supplémentaires</li>
+        <li>Livraison à domicile | Prix selon le contrat</li>
+        <li>Conducteur additionnel <br><small>*vous en prenez la responsabilité.</small></li>
+      </ul>
+    </div>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- SECTION 4 – CONDITIONS & DOCUMENTS -->
+<section class="section conditions-section">
+  <div class="container">
+    <h2 class="section-title slide-up">Conditions & Documents requis</h2>
+    <p class="section-subtitle fade-in">
+      Avant de prendre le volant, merci de bien vérifier que vous remplissez toutes les conditions de location.
+    </p>
+
+    <div class="timeline">
+      <div class="timeline-item animate-on-scroll">
+        <div class="timeline-bullet">1</div>
+        <div class="timeline-content">
+          <h3>Âge minimum</h3>
+          <p>18 ans (et + pour certains modèles sport)</p>
+        </div>
+      </div>
+
+      <div class="timeline-item animate-on-scroll">
+        <div class="timeline-bullet">3</div>
+        <div class="timeline-content">
+          <h3>Caution</h3>
+          <p>2 500€ par empreinte bancaire ou espèces / Véhicule</p>
+        </div>
+      </div>
+
+      <div class="timeline-item animate-on-scroll">
+        <div class="timeline-bullet">4</div>
+        <div class="timeline-content">
+          <h3>Paiement</h3>
+          <p>Carte bancaire ou espèces</p>
+        </div>
+      </div>
+
+      <div class="timeline-item animate-on-scroll">
+        <div class="timeline-bullet">5</div>
+        <div class="timeline-content">
+          <h3>Documents</h3>
+          <p>CNI ou passeport + permis + justificatif de domicile</p>
+        </div>
+      </div>
+
+      <div class="timeline-item animate-on-scroll">
+        <div class="timeline-bullet">6</div>
+        <div class="timeline-content">
+          <h3>Zone autorisée</h3>
+          <p>Conduite autorisée en France et autorisation hors pays avec accord</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Logo RsDrive" class="logo-img"/>
+      </a>
+      <p class="footer-cities">Oyonnax, Bourg-en-Bresse, Lyon et alentours</p>
+      <div class="footer-links">
+        <ul>
+          <li><a href="reservation.html">Réservation</a></li>
+          <li><a href="vehicules.html">Nos véhicules</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <div class="footer-social">
+          <ul>
+            <li><a href="https://www.instagram.com/rs.drive01" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="https://www.snapchat.com/add/rs-drive01" target="_blank"><i class="fab fa-snapchat-ghost"></i></a></li>
+          </ul>
+        </div>
+        <p>Téléphone : <a href="tel:+33622549395">+33 622 549 395</a></p>
+        <p>Email : <a href="mailto:contact@rsdrive.fr">contact@rsdrive.fr</a></p>
+      </div>
+      <p class="footer-copyright">&copy; 2025 RsDrive. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const mobileNav = document.querySelector('.main-nav-mobile');
+
+    if (hamburgerMenu && mobileNav) {
+      hamburgerMenu.addEventListener('click', () => {
+        mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
+      });
+    }
+
+    window.addEventListener('scroll', function () {
+      const header = document.querySelector('.header');
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Observer pour animation section 1
+  const observerSection1 = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('#section-1 .slide-up, #section-1.fade-in').forEach(el => {
+    observerSection1.observe(el);
+  });
+
+  // Animation au scroll pour cette section
+document.querySelectorAll('.slide-up').forEach(el => {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate');
+      }
+    });
+  }, { threshold: 0.2 });
+  observer.observe(el);
+});
+
+// Mini galerie interactive
+document.querySelectorAll('.rs3-thumbnails img').forEach(thumbnail => {
+  thumbnail.addEventListener('click', function () {
+    const mainImage = document.querySelector('.rs3-main-image img');
+    mainImage.src = this.src;
+  });
+});
+
+// Scroll animation pour section Tarifs
+const section3Elements = document.querySelectorAll('.slide-up, .fade-in');
+section3Elements.forEach(el => {
+  observer.observe(el);
+});
+
+  </script>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate');
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.slide-up, .fade-in').forEach(el => observer.observe(el));
+</script>
+<script>
+  const observerPricing = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate');
+      }
+    });
+  }, {
+    threshold: 0.2
+  });
+
+  document.querySelectorAll('.fade-up').forEach(el => observerPricing.observe(el));
+</script>
+<script>
+  const timelineItems = document.querySelectorAll('.timeline-item');
+
+  const observerTimeline = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Ajoute un délai selon l'ordre
+        const index = [...timelineItems].indexOf(entry.target);
+        setTimeout(() => {
+          entry.target.classList.add('animate');
+        }, index * 100); // 150ms de décalage par élément
+      }
+    });
+  }, { threshold: 0.4 });
+
+  timelineItems.forEach(item => {
+    observerTimeline.observe(item);
+  });
+</script>
+<script>
+  // Récupère les paramètres de l'URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const vehiculeChoisi = urlParams.get('vehicule');
+
+  // Si un véhicule est défini, on le sélectionne dans la liste
+  if (vehiculeChoisi) {
+    const selectVehicule = document.querySelector('select');
+
+    if (selectVehicule) {
+      // On parcourt les options pour sélectionner celle qui correspond
+      Array.from(selectVehicule.options).forEach(option => {
+        if (option.value.toLowerCase() === vehiculeChoisi.toLowerCase()) {
+          option.selected = true;
+        }
+      });
+    }
+  }
+</script>
+
+</body>
+</html>

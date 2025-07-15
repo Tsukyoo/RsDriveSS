@@ -1,0 +1,38 @@
+/* animations.css */
+
+/* Fade In */
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.fade-in.animate {
+    opacity: 1;
+}
+
+/* Slide Up */
+.slide-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.slide-up.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Zoom In */
+.zoom-in {
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.zoom-in.animate {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Hover sur boutons (déjà géré dans style.css avec transition et transform: scale) */
+/* Scroll Smooth (déjà géré dans style.css sur l'élément html) */
