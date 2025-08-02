@@ -860,14 +860,77 @@ body.video-done #video-intro {
   .desktop-only { display: none !important; }
   .mobile-only { display: block !important; }
 }
+
+/* 🔲 Écran d’intro */
+#intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("images/intro-bg.jpg") no-repeat center center/cover; /* 👉 ton image de fond */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+/* ✨ Quand on veut cacher l’intro */
+#intro-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 📄 Texte et logo */
+.intro-text-overlay {
+  text-align: center;
+  color: #fff;
+  opacity: 0;
+  animation: fadeInText 1.5s ease forwards;
+}
+
+.intro-logo {
+  width: 120px;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeInText 1.5s ease forwards;
+}
+
+.intro-main-text {
+  font-size: 2.8em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* 📱 Mobile : texte un peu plus petit */
+@media screen and (max-width: 768px) {
+  .intro-main-text {
+    font-size: 1.8em;
+  }
+  .intro-logo {
+    width: 90px;
+  }
+}
+
+/* ✨ Animation fade-in du texte */
+@keyframes fadeInText {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
     </style>
 </head>
 <body>
-  <div id="video-intro">
-  <div class="video-text-overlay">
-    <img src="images/logo.png" alt="Logo RsDrive" class="video-logo-watermark" id="rsdrive-logo">
-    <h1 class="main-text" id="intro-text">RsDrive. Le luxe commence ici.</h1>
+  <div id="intro-screen">
+  <div class="intro-text-overlay">
+    <img src="images/logo.png" alt="Logo RsDrive" class="intro-logo">
+    <h1 class="intro-main-text">RsDrive. Le luxe commence ici.</h1>
   </div>
+</div>
 
   <!-- 🎥 Desktop : vidéo -->
   <video id="intro-video"
@@ -1103,6 +1166,8 @@ if (hamburgerMenu && mobileNav) {
                 });
             });
         });
+
+
     </script>
 
     <script>
@@ -1146,6 +1211,12 @@ if (hamburgerMenu && mobileNav) {
       document.body.classList.add('video-done');
     }, isMobile ? 1300 : 2200);
   });
+
+  window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.getElementById('intro-screen').classList.add('fade-out');
+  }, 2200); // ⏳ durée avant disparition
+});
 </script>
 </script>
 
