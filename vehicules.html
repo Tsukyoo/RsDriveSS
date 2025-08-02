@@ -42,6 +42,15 @@
   display: none;
 }
 
+/* 📱 Désactiver zoom sur mobile */
+@media (max-width: 768px) {
+  #video-intro.zoom-in video,
+  #video-intro.zoom-out video {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* Affichage conditionnel */
 @media (max-width: 768px) {
   .desktop-only {
@@ -1112,26 +1121,31 @@ if (hamburgerMenu && mobileNav) {
 <script>
   window.addEventListener('DOMContentLoaded', () => {
     const intro = document.getElementById('video-intro');
-    const video = document.getElementById('intro-video');
     const overlay = document.querySelector('.video-overlay');
 
-    // Étape 1 : Zoom IN rapide (entrée dans l’écran)
-    setTimeout(() => {
-      intro.classList.add('zoom-in');
-    }, 100);
+    // ✅ Détecter si on est sur mobile
+    const isMobile = window.innerWidth <= 768;
 
-    // Étape 2 : Pause subtile d’immersion (rien à faire)
-    // Étape 3 : Zoom OUT + blur
-    setTimeout(() => {
-      intro.classList.remove('zoom-in');
-      intro.classList.add('zoom-out');
-      overlay.classList.add('blur');
-    }, 1300); // après 1.3s
+    // ✅ Étape 1 : Zoom IN (desktop seulement)
+    if (!isMobile) {
+      setTimeout(() => {
+        intro.classList.add('zoom-in');
+      }, 100);
+    }
 
-    // Étape 4 : Fin, on cache la vidéo
+    // ✅ Étape 2 : Zoom OUT (desktop seulement)
+    if (!isMobile) {
+      setTimeout(() => {
+        intro.classList.remove('zoom-in');
+        intro.classList.add('zoom-out');
+        overlay.classList.add('blur');
+      }, 1300);
+    }
+
+    // ✅ Étape 3 : Fin de l'intro (desktop & mobile)
     setTimeout(() => {
       document.body.classList.add('video-done');
-    }, 2200); // tout terminé à 2.2s
+    }, isMobile ? 1300 : 2200); 
   });
 
   window.addEventListener('DOMContentLoaded', () => {
