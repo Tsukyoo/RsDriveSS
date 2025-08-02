@@ -858,7 +858,14 @@ body.video-done #video-intro {
   webkit-playsinline
   preload="auto"
   class="intro-media desktop-only">
-  <source src="videos/pov-rsdrive.mp4" type="video/mp4">
+  
+  <!-- 🎥 Version mobile 720p -->
+  <source src="videos/pov-rsdrive-mobile-720p.mp4" type="video/mp4" media="(max-width: 768px)">
+  
+  <!-- 🎥 Version desktop 1080p -->
+  <source src="videos/pov-rsdrive.mp4" type="video/mp4" media="(min-width: 769px)">
+
+  Votre navigateur ne supporte pas la vidéo.
 </video>
 
   <!-- 🖼️ Mobile GIF fallback -->
