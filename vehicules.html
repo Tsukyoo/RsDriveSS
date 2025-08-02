@@ -850,34 +850,38 @@ body.video-done #video-intro {
   animation: fadeInLogo 1s ease 0.5s forwards;
   opacity: 0;
 }
+
+/* 📱 Par défaut, vidéo visible, GIF caché */
+.desktop-only { display: block; }
+.mobile-only { display: none; }
+
+/* 📱 Sur mobile : on inverse */
+@media (max-width: 768px) {
+  .desktop-only { display: none !important; }
+  .mobile-only { display: block !important; }
+}
     </style>
 </head>
 <body>
-   <div id="video-intro">
+  <div id="video-intro">
   <div class="video-text-overlay">
     <img src="images/logo.png" alt="Logo RsDrive" class="video-logo-watermark" id="rsdrive-logo">
     <h1 class="main-text" id="intro-text">RsDrive. Le luxe commence ici.</h1>
   </div>
 
-  <!-- 🎥 Desktop version -->
-<video id="intro-video"
-  autoplay
-  muted
-  playsinline
-  webkit-playsinline
-  preload="auto"
-  class="intro-media desktop-only">
-  
-  <!-- 🎥 Version mobile 720p -->
-  <source src="videos/pov-rsdrive-mobile-720p.mp4" type="video/mp4" media="(max-width: 768px)">
-  
-  <!-- 🎥 Version desktop 1080p -->
-  <source src="videos/pov-rsdrive.mp4" type="video/mp4" media="(min-width: 769px)">
+  <!-- 🎥 Desktop : vidéo -->
+  <video id="intro-video"
+    autoplay
+    muted
+    playsinline
+    webkit-playsinline
+    preload="auto"
+    class="intro-media desktop-only">
+    <source src="videos/pov-rsdrive.mp4" type="video/mp4">
+    Votre navigateur ne supporte pas la vidéo.
+  </video>
 
-  Votre navigateur ne supporte pas la vidéo.
-</video>
-
-  <!-- 🖼️ Mobile GIF fallback -->
+  <!-- 🖼 Mobile : GIF -->
   <img src="images/pov-rsdrive.gif" alt="Intro RsDrive" class="intro-media mobile-only" />
 
   <div class="video-overlay"></div>
@@ -1122,19 +1126,14 @@ if (hamburgerMenu && mobileNav) {
   window.addEventListener('DOMContentLoaded', () => {
     const intro = document.getElementById('video-intro');
     const overlay = document.querySelector('.video-overlay');
-
-    // ✅ Détecter si on est sur mobile
     const isMobile = window.innerWidth <= 768;
 
-    // ✅ Étape 1 : Zoom IN (desktop seulement)
+    // 🎥 Animation zoom UNIQUEMENT pour desktop
     if (!isMobile) {
       setTimeout(() => {
         intro.classList.add('zoom-in');
       }, 100);
-    }
 
-    // ✅ Étape 2 : Zoom OUT (desktop seulement)
-    if (!isMobile) {
       setTimeout(() => {
         intro.classList.remove('zoom-in');
         intro.classList.add('zoom-out');
@@ -1142,33 +1141,11 @@ if (hamburgerMenu && mobileNav) {
       }, 1300);
     }
 
-    // ✅ Étape 3 : Fin de l'intro (desktop & mobile)
+    // ✅ Cache l'intro après un délai (même sur mobile)
     setTimeout(() => {
       document.body.classList.add('video-done');
-    }, isMobile ? 1300 : 2200); 
+    }, isMobile ? 1300 : 2200);
   });
-
-  window.addEventListener('DOMContentLoaded', () => {
-  const video = document.getElementById('intro-video');
-
-  // ✅ On tente la lecture toutes les 500ms jusqu'à succès
-  const tryPlay = () => {
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          // ✅ Lecture réussie
-          clearInterval(intervalId);
-        })
-        .catch((error) => {
-          // ⛔ Tentative échouée, on réessaie bientôt
-        });
-    }
-  };
-
-  // ✅ Relance toutes les 500ms jusqu’à ce que ça passe (souvent max 1 ou 2 essais suffisent)
-  const intervalId = setInterval(tryPlay, 500);
-});
 </script>
 </script>
 
