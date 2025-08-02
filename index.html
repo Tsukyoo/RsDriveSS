@@ -301,11 +301,28 @@
         .why-rsdrive-item p {
             color: #ccc;
         }
-
-/* === Témoignages section CLEAN et RESPONSIVE === */
-.testimonials-section {
+        
+        /* Témoignages Section */
+        .testimonials-section {
   background-color: #111;
   padding: 80px 0;
+}
+
+        .testimonials-slider {
+  display: flex;
+  width: max-content;
+  animation: scrollSlider 30s linear infinite;
+  padding-left: 12px;
+  gap: 16px;
+}
+
+@keyframes scrollSlider {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 .testimonials-wrapper {
@@ -313,27 +330,66 @@
   position: relative;
 }
 
+.testimonial-item {
+  flex-shrink: 0;
+  width: 33.33%;
+  padding: 20px;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.testimonial-image {
+  height: 80px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.testimonial-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testimonial-quote {
+  color: #ddd;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.testimonial-author {
+  font-weight: bold;
+  color: #fff;
+}
+
 .testimonials-slider {
   display: flex;
-  gap: 20px;
-  animation: scrollSlider 30s linear infinite;
   width: max-content;
+  animation: scrollSlider 30s linear infinite;
 }
 
 @keyframes scrollSlider {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .testimonial-item {
   flex: 0 0 auto;
   width: 33.33vw;
-  box-sizing: border-box;
   padding: 20px;
-  margin-right: 0;
   background-color: #1a1a1a;
   border-radius: 10px;
   text-align: center;
+  margin-right: 12px; /* ✅ Espace plus réduit */
+}
+
+.testimonial-item:last-child {
+  margin-right: 0; /* ✅ Supprime l'espace en trop à la fin */
 }
 
 .testimonial-image {
@@ -361,32 +417,29 @@
   color: #fff;
 }
 
-/* === MOBILE === */
+/* ✅ Responsive Mobile */
 @media screen and (max-width: 768px) {
-  .testimonials-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
   .testimonials-slider {
-    display: flex;
-    animation: none;
-    gap: 16px;
-    padding: 0 16px;
-    scroll-snap-type: x mandatory;
-    width: auto;
-  }
+  display: flex;
+  width: max-content;
+  gap: 16px;
+  animation: scrollSlider 30s linear infinite;
+}
 
   .testimonial-item {
-    flex: 0 0 auto;
-    width: 85vw;
-    box-sizing: border-box;
-    scroll-snap-align: start;
-  }
+  width: 250px;
+  flex: 0 0 auto;
+  margin-right: 16px;
+}
 
-  /* Masque la scrollbar */
-  .testimonials-wrapper::-webkit-scrollbar {
-    display: none;
+  .testimonials-wrapper {
+    overflow: hidden;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .testimonial-item {
+    width: 300px;
   }
 }
 
@@ -428,84 +481,181 @@
             background-color: #b8070f;
         }
 
+        /* Footer */
         .footer {
-    background-color: #111;
-    padding: 50px 0;
-    color: #ccc;
-    text-align: center;
+            background-color: #111;
+            color: #fff;
+            padding: 40px 20px;
+            color: #ccc;
+            text-align: center;
+            font-size: 0.95em;
+        }
+
+        .footer-logo img {
+            width: 120px;
+             margin: 0 auto;
+            margin-bottom: 15px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            text-align: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+
+        .footer-cities {
+            margin-bottom: 15px;
+            font-weight: 600;
+            margin: 10px auto;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-social ul {
+            list-style: none;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social i {
+            font-size: 1.5em;
+        }
+
+        .footer-social a {
+            color: #ccc;
+            font-size: 1.6em;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            transition: transform 0.2s ease;
+        }
+
+        .footer-social a:hover {
+            color: #fff;
+            transform: scale(1.2);
+        }
+
+        .footer-contact p {
+            margin-bottom: 5px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer p {
+            margin: 10px 0;
+            color: #ccc;
+        }
+
+        .footer-contact a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            color: #fff;
+        }
+
+         @media (max-width: 768px) {
+        .footer-social ul {
+            flex-direction: row !important;
+        }
+        }
+
+        .contest-section {
+  background-color: #1a1a1a;
+  padding: 80px 0;
 }
 
-.footer-inner {
-    display: flex;
+.contest-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.contest-text {
+  flex: 1;
+  color: #fff;
+}
+
+.contest-text p {
+  font-size: 1.1em;
+  color: #ccc;
+  margin: 20px 0;
+}
+
+.btn-contest {
+  display: inline-block;
+  background-color: #E50914;
+  color: #fff;
+  padding: 14px 28px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-contest:hover {
+  background-color: #b8070f;
+}
+
+.contest-image {
+  flex: 1;
+  text-align: center;
+}
+
+.contest-image img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(8, 8, 8, 0.87);
+}
+
+@media (max-width: 768px) {
+  .contest-inner {
     flex-direction: column;
-    align-items: center;
-}
+    text-align: center;
+  }
 
-.footer-logo {
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
-    text-decoration: none;
-    margin-bottom: 20px;
-}
-
-.footer-cities {
-    margin-bottom: 15px;
-    font-size: 0.95em;
-    line-height: 1.6;
-    max-width: 300px;
-    color: #bbb;
-    font-style: italic;
-}
-
-.footer-links ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 20px;
-    display: flex;
-    gap: 20px;
-}
-
-.footer-links a {
-    color: #ccc;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: #fff;
-}
-
-.footer-social ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 0px;
-    display: flex;
-    gap: 15px;
-}
-
-.footer-social a {
-    color: #ccc;
-    font-size: 1.3em;
-    transition: color 0.3s ease;
-}
-
-.footer-social a:hover {
-    color: #fff;
-}
-
-.footer-contact p {
-    margin-bottom: 5px;
-}
-
-.footer-contact a {
-    color: #ccc;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-contact a:hover {
-    color: #fff;
+  .contest-text, .contest-image {
+    width: 100%;
+  }
 }
 
 
@@ -529,6 +679,20 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        @media (max-width: 768px) {
+        .footer-links ul {
+            flex-direction: row;
+            justify-content: center;
+        }
+}
+
+@media (min-width: 769px) {
+  .footer-links ul {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 
         /* Responsive Design (sera affiné dans le CSS externe) */
         @media (max-width: 768px) {
@@ -569,85 +733,71 @@
             .testimonial-item {
                 width: 95%;
             }
-        }
 
-        @media (min-width: 769px) {
-  .footer-contact {
-    position: absolute;
-    right: 40px;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+            .footer-inner {
+                align-items: flex-start;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
 
-  .footer-inner {
-    position: relative;
-    align-items: flex-start;
-  }
-
-  .footer-contact .footer-social {
-    margin-bottom: 10px;
-  }
-
-  .footer-contact .footer-social ul {
-    justify-content: center;
-  }
-
-  .footer-cities {
-    white-space: nowrap;
-  }
-
+            .footer-links ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
+.footer-links li {
+  display: inline-block;
+}
+
+.footer-links a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 1em;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+        }
+
+.footer-links ul {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  display: inline-block;
+}
+
+.footer-links a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 1em;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
     </style>
 </head>
 <style>
         /* Collez le code CSS ici */
-
-.scroll-indicator-mobile {
-  display: none;
-}
-@media screen and (max-width: 768px) {
-  .scroll-indicator-mobile {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: #ccc;
-    margin-top: 10px;
-    margin-right: 20px;
-    opacity: 0.6;
-    animation: fadeIn 1s ease-in;
-  }
-
-  .scroll-indicator-mobile .arrow {
-    display: inline-block;
-    animation: arrowBounce 1.2s infinite;
-    color: #E50914;
-    font-weight: bold;
-    font-size: 14px;
-  }
-
-  @keyframes arrowBounce {
-    0%, 100% {
-      transform: translateX(0);
-    }
-    50% {
-      transform: translateX(5px);
-    }
-  }
-
-  @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(5px); }
-    100% { opacity: 0.6; transform: translateY(0); }
-  }
-}
-        
         .why-rsdrive-item {
             text-align: center;
         }
@@ -673,48 +823,27 @@
 
         .why-rsdrive {
             padding: 40px 0;
+            position: relative;
+            background-color: #111; /* même couleur que le fond de cette section */
+            z-index: 1;
         }
+
+        .why-rsdrive::before {
+            content: "";
+            position: absolute;
+            top: -300px; /* remonte sur la section hero */
+            left: 0;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(to top, #111 0%, rgba(0, 0, 0, 0) 100%);
+            z-index: 0;
+}
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-
-@media (max-width: 768px) {
-  .footer-inner {
-    align-items: center !important;
-    text-align: center;
-  }
-
-  .footer-links ul,
-    .footer-social ul {
-        flex-direction: row !important; /* Forcer l'alignement horizontal */
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-  .footer-links li,
-  .footer-social li {
-    margin-bottom: 0;
-  }
-
-  .footer-contact {
-    text-align: center;
-  }
-
-  .footer-cities {
-    text-align: center;
-    margin-bottom: 15px;
-}
-}
-
-.footer-copyright {
-  margin-top: 30px;
-  font-size: 0.9em;
-  color: #777;
-}
     </style>
 <body>
     <header class="header">
@@ -746,11 +875,12 @@
     </div>
 </header>
 
+
     <section class="hero">
         <div class="hero-content">
             <h1 class="hero-title">Louez votre voiture de rêve dès aujourd’hui avec RsDrive</h1>
             <p class="hero-subtitle">Pas assez pour se l'offrir ? Louez-la !</p>
-            <a href="reservation.html" class="btn-primary">Réserver maintenant</a>
+            <a href="/vehicules.html" class="btn-primary">Voir nos véhicules</a>
         </div>
     </section>
 
@@ -777,12 +907,25 @@
   </div>
 </section>
 
-    <section class="section testimonials-section">
+<section id="contest-section" class="section contest-section">
+  <div class="container contest-inner">
+    <div class="contest-text">
+      <h2 class="section-title">Gagnez votre prochaine location !</h2>
+      <p>RsDrive organise régulièrement des concours sur Instagram avec des locations offertes à gagner. Participez dès maintenant et tentez votre chance !</p>
+      <a href="https://www.instagram.com/rs.drive01" target="_blank" class="btn-contest">Je participe</a>
+    </div>
+    <div class="contest-image">
+      <img src="images/concours-rsdrive.jpg" alt="Concours RsDrive">
+    </div>
+  </div>
+</section>
+
+<section class="section testimonials-section">
   <div class="container">
     <h2 class="section-title">Ce que nos clients disent</h2>
     <div class="testimonials-wrapper">
       <div class="testimonials-slider">
-        <!-- Témoignages (x2 pour la boucle fluide) -->
+        <!-- Témoignages (originaux) -->
         <div class="testimonial-item">
           <div class="testimonial-image"><img src="images/client1.jpg" alt="Client 1"></div>
           <p class="testimonial-quote">"Nickel ! Rapide et simple, arrangeant merci encore !"</p>
@@ -790,34 +933,104 @@
         </div>
         <div class="testimonial-item">
           <div class="testimonial-image"><img src="images/client2.jpg" alt="Client 2"></div>
-          <p class="testimonial-quote">"J'ai loué une voiture pour un week-end à Lyon, tout s'est déroulé parfaitement. J'ai adorer le Classe A"</p>
+          <p class="testimonial-quote">"J'ai loué une voiture pour un week-end à Lyon, tout s'est déroulé parfaitement. J'ai adoré le Classe A."</p>
           <p class="testimonial-author">Marine P</p>
         </div>
         <div class="testimonial-item">
           <div class="testimonial-image"><img src="images/client3.jpg" alt="Client 3"></div>
-          <p class="testimonial-quote">"Mise a part que j'ai eu un retard de 30 minutes parfait !"</p>
+          <p class="testimonial-quote">"Mise à part un petit retard, parfait !"</p>
           <p class="testimonial-author">Safia R</p>
         </div>
-        <!-- Duplication -->
+
+        <!-- Nouveaux témoignages (remplaçant les doublons) -->
         <div class="testimonial-item">
-          <div class="testimonial-image"><img src="images/client1.jpg" alt="Client 1"></div>
-          <p class="testimonial-quote">"Nickel ! Rapide et simple, arrangeant merci encore !"</p>
-          <p class="testimonial-author">Imen S</p>
+          <div class="testimonial-image"><img src="images/client4.jpg" alt="Client 4"></div>
+          <p class="testimonial-quote">"Super service, la voiture était impeccable !"</p>
+          <p class="testimonial-author">Yanis T</p>
         </div>
         <div class="testimonial-item">
-          <div class="testimonial-image"><img src="images/client2.jpg" alt="Client 2"></div>
-          <p class="testimonial-quote">"J'ai loué une voiture pour un week-end à Lyon, tout s'est déroulé parfaitement. J'ai adorer le Classe A"</p>
-          <p class="testimonial-author">Marine P</p>
+          <div class="testimonial-image"><img src="images/client5.jpg" alt="Client 5"></div>
+          <p class="testimonial-quote">"Accueil au top et prix corrects, je recommande."</p>
+          <p class="testimonial-author">Laura M</p>
         </div>
         <div class="testimonial-item">
-          <div class="testimonial-image"><img src="images/client3.jpg" alt="Client 3"></div>
-          <p class="testimonial-quote">"Mise a part que j'ai eu un retard de 30 minutes parfait !"</p>
-          <p class="testimonial-author">Safia R</p>
+          <div class="testimonial-image"><img src="images/client6.jpg" alt="Client 6"></div>
+          <p class="testimonial-quote">"Voiture livrée à l’heure, expérience nickel."</p>
+          <p class="testimonial-author">Thomas G</p>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+.testimonials-section {
+  background-color: #111;
+  padding: 80px 0;
+}
+
+.testimonials-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.testimonials-slider {
+  display: flex;
+  width: max-content;
+  animation: scrollSlider 30s linear infinite;
+  gap: 16px;
+}
+
+.testimonial-item {
+  flex: 0 0 auto;
+  width: 280px;
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.testimonial-image {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.testimonial-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testimonial-quote {
+  color: #ddd;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.testimonial-author {
+  font-weight: bold;
+  color: #fff;
+}
+
+@keyframes scrollSlider {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .testimonial-item {
+    width: 240px;
+  }
+}
+</style>
+
 
     <section class="section callback-section">
         <div class="container callback-inner">
@@ -829,33 +1042,29 @@
 
     <footer class="footer">
     <div class="container footer-inner">
-    <a href="index.html" class="logo">
-        <img src="images/logo.png" alt="Logo RsDrive" class="logo-img" />
-    </a>
-    <p class="footer-cities">Oyonnax, Bourg-en-Bresse, Lyon et aux alentours</p>
-
-    <div class="footer-links">
-        <ul>
-            <li><a href="reservation.html">Réservation</a></li>
-            <li><a href="vehicules.html">Nos véhicules</a></li>
-            <li><a href="mentions-legales.html">Mentions légales</a></li>
-        </ul>
-    </div>
-
-    <!-- 👇 déplace ICI les réseaux sociaux -->
-    <div class="footer-contact">
+        <a href="index.html" class="footer-logo">
+            <img src="images/logo.png" alt="RsDrive Logo" class="logo-img">
+        </a>
+        <p class="footer-cities">Oyonnax, Bourg-en-Bresse, Lyon, etc.</p>
+        <div class="footer-links">
+            <ul>
+                <li><a href="reservation.html">Réservation</a></li>
+                <li><a href="vehicules.html">Nos véhicules</a></li>
+                <li><a href="mentions-legales.html">Mentions légales</a></li>
+            </ul>
+        </div>
         <div class="footer-social">
             <ul>
                 <li><a href="https://www.instagram.com/rs.drive01" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
                 <li><a href="https://www.snapchat.com/add/rs-drive01" target="_blank" aria-label="Snapchat"><i class="fab fa-snapchat-ghost"></i></a></li>
             </ul>
         </div>
-        <p>Téléphone : <a href="tel:+33622549395">+33 622549395</a></p>
-        <p>Email : <a href="mailto:contact@rsdrive.fr">contact@rsdrive.fr</a></p>
+        <div class="footer-contact">
+            <p>Téléphone : <a href="tel:+33XXXXXXXXX">+33 0622549395</a></p>
+            <p>Email : <a href="mailto:contact@rsdrive.com">contact@rs-drive.fr</a></p>
+        </div>
+        <p>&copy; 2025 RsDrive. Tous droits réservés.</p>
     </div>
-
-    <p class="footer-copyright">&copy; 2025 RsDrive. Tous droits réservés.</p>
-</div>
 </footer>
 
     <script>
@@ -910,24 +1119,29 @@ if (hamburgerMenu && mobileNav) {
             observer.observe(item);
         });
 
-    // Injecter dynamiquement l'indicateur "Glissez pour voir"
-if (window.innerWidth <= 768) {
-  const wrapper = document.querySelector('.testimonials-wrapper');
-  const indicator = document.createElement('div');
-  indicator.className = 'scroll-indicator-mobile';
-  indicator.innerHTML = '<span>Glissez pour voir</span><span class="arrow">→</span>';
-  wrapper.insertAdjacentElement('afterend', indicator);
+        // Confettis sur la section concours
+let confettiShown = false;
+const contestTarget = document.querySelector('#contest-section');
 
-  // Cacher après le premier scroll
-  let hasScrolled = false;
-  wrapper.addEventListener('scroll', () => {
-    if (!hasScrolled) {
-      hasScrolled = true;
-      indicator.style.display = 'none';
+const confettiObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !confettiShown) {
+      confettiShown = true;
+
+      // 🎉 Confettis luxe style RsDrive
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ['#E50914', '#ffffff', '#ffcc00']
+      });
     }
   });
-}
+}, { threshold: 0.8 }); // 👈 attend que 80% de la section soit visible
+
+if (contestTarget) confettiObserver.observe(contestTarget);
 
     </script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>

@@ -851,10 +851,15 @@ body.video-done #video-intro {
   </div>
 
   <!-- 🎥 Desktop version -->
-  <video id="intro-video" autoplay muted playsinline preload="auto" webkit-playsinline class="intro-media desktop-only">
-    <source src="videos/pov-rsdrive.mp4" type="video/mp4">
-    Votre navigateur ne supporte pas la vidéo.
-  </video>
+<video id="intro-video"
+  autoplay
+  muted
+  playsinline
+  webkit-playsinline
+  preload="auto"
+  class="intro-media desktop-only">
+  <source src="videos/pov-rsdrive.mp4" type="video/mp4">
+</video>
 
   <!-- 🖼️ Mobile GIF fallback -->
   <img src="images/pov-rsdrive.gif" alt="Intro RsDrive" class="intro-media mobile-only" />
@@ -1160,58 +1165,46 @@ if (hamburgerMenu && mobileNav) {
 </script>
 
 <script>
-/* -------- AUTOPLAY MOBILE ROBUSTE -------- */
 (function () {
-  const video   = document.getElementById('intro-video');
-  const intro   = document.getElementById('video-intro');
-  const overlay = document.querySelector('.video-overlay');
-
+  const video = document.getElementById('intro-video');
   if (!video) return;
 
-  /* 1) Assure les attributs nécessaires */
+  // ✅ Forcer les bons attributs
   video.setAttribute('muted', 'true');
   video.setAttribute('playsinline', 'true');
-  video.setAttribute('webkit-playsinline', 'true');   // ✅ iOS
+  video.setAttribute('webkit-playsinline', 'true');
+  video.muted = true;
 
-  /* 2) Fonction de lancement */
-  const tryPlay = () =>
-    video.play()
-      .then(() => clearInterval(retry))           // ✅ ça tourne
-      .catch(() => { /* encore bloqué ? on réessaie */ });
+  // ✅ Essayer de lire tout de suite
+  const tryPlay = () => {
+    video.play().catch(() => {
+      // iOS peut refuser => on attend un "tap" ou un "scroll"
+    });
+  };
+  tryPlay();
 
-  /* 3) Boucle toutes les 400 ms jusqu’à réussite max 6 fois */
-  const retry = setInterval(tryPlay, 400);
-  let attempts = 0;
-  const maxAttempts = 6;
-
-  /* Stoppe la boucle après 6 essais (≈ 2,4 s) */
-  const stopIfStuck = setInterval(() => {
-    if (++attempts >= maxAttempts) {
-      clearInterval(retry);          // On arrête
-      clearInterval(stopIfStuck);
-    }
-  }, 400);
-
-  /* 4) Fallback : premier geste utilisateur = lecture immédiate */
+  // ✅ Si refusé, on attend la 1ʳᵉ interaction
   const kickOff = () => {
     tryPlay();
     window.removeEventListener('touchstart', kickOff);
-    window.removeEventListener('click',      kickOff);
+    window.removeEventListener('click', kickOff);
+    window.removeEventListener('scroll', kickOff);
   };
 
   window.addEventListener('touchstart', kickOff, { once: true });
-  window.addEventListener('click',      kickOff, { once: true });
+  window.addEventListener('click', kickOff, { once: true });
+  window.addEventListener('scroll', kickOff, { once: true });
 
-  /* 5) Animations d’intro (inchangées) */
-  window.addEventListener('load', () => {
-    intro.classList.add('zoom-in');
-    setTimeout(() => {
-      intro.classList.remove('zoom-in');
-      intro.classList.add('zoom-out');
-      overlay.classList.add('blur');
-    }, 1200);
-    setTimeout(() => document.body.classList.add('video-done'), 2100);
-  });
+  // ✅ Sécurité : relancer la tentative toutes les 400ms jusqu’à succès
+  let attempts = 0;
+  const maxAttempts = 6;
+  const retry = setInterval(() => {
+    video.play().then(() => {
+      clearInterval(retry); // 🎉 ça tourne enfin
+    }).catch(() => {
+      if (++attempts >= maxAttempts) clearInterval(retry);
+    });
+  }, 400);
 })();
 </script>
 
