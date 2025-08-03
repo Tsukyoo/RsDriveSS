@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nos Véhicules - RsDrive</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        /* Styles CSS de base (seront externalisés dans style.css) */
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #000;
-            color: #fff;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nos Véhicules - RsDrive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
 
 .intro-media {
   position: absolute;
@@ -290,9 +290,9 @@
 }
 
 .footer-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #video-intro {
@@ -315,7 +315,7 @@
 }
 
 #video-intro.zoom-in video {
-  transform: scale(1.16); /* 🔁 Avant c’était 1.4 */
+  transform: scale(1.16);
 }
 
 #video-intro.zoom-out video {
@@ -655,22 +655,32 @@ body.video-done #video-intro {
 }
 
 .video-text-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: fixed;        /* ✅ fixée sur tout l’écran */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  color: #fff;
-  z-index: 10;
-  opacity: 0;
-  animation: fadeInText 1.5s ease 0.6s forwards;
+  z-index: 99999;
+  pointer-events: none;   /* ✅ n’interfère pas avec les clics */
 }
+
+.video-text-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 
 .video-text-overlay .main-text {
   font-size: 2.8em;
   font-weight: 600;
-  letter-spacing: 1px;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  color: white;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
 .video-text-overlay .sub-text {
@@ -681,9 +691,7 @@ body.video-done #video-intro {
 }
 
 @keyframes fadeInText {
-  to {
-    opacity: 1;
-  }
+  to { opacity: 1; }
 }
 
 @keyframes fadeInLogo {
@@ -844,7 +852,8 @@ body.video-done #video-intro {
   display: block;
   margin: 0 auto;
   width: 120px;
-  opacity: 0.08;
+  opacity: 0.9;
+  margin-bottom: 15px;
   filter: brightness(1.2);
   pointer-events: none;
   animation: fadeInLogo 1s ease 0.5s forwards;
@@ -922,36 +931,101 @@ body.video-done #video-intro {
   to { opacity: 1; transform: translateY(0); }
 }
 
+
+/* 🔲 Écran d’intro */
+#intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  overflow: hidden;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+/* 🎥 Vidéo plein écran */
+#intro-screen video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* ✨ Quand on veut cacher l’intro */
+#intro-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 📄 Texte & logo */
+.intro-text-overlay {
+  text-align: center;
+  color: #fff;
+  opacity: 0;
+  animation: fadeInText 1.5s ease forwards;
+}
+
+.intro-logo {
+  width: 120px;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeInText 1.5s ease forwards;
+}
+
+.intro-main-text {
+  font-size: 2.8em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* 📱 Mobile : texte plus petit */
+@media screen and (max-width: 768px) {
+  .intro-main-text {
+    font-size: 1.8em;
+  }
+  .intro-logo {
+    width: 90px;
+  }
+}
+
+/* ✨ Animation fade-in */
+@keyframes fadeInText {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
     </style>
 </head>
 <body>
-  <div id="intro-screen">
-  <div class="intro-text-overlay">
-    <img src="images/logo.png" alt="Logo RsDrive" class="intro-logo">
-    <h1 class="intro-main-text">RsDrive. Le luxe commence ici.</h1>
+  <!-- 🎥 INTRO VIDÉO -->
+  <div id="video-intro">
+    <div class="video-text-overlay">
+      <div class="video-text-inner">
+          <img src="images/logo.png" alt="Logo RsDrive" class="video-logo-watermark" id="rsdrive-logo">
+          <h1 class="main-text" id="intro-text">RsDrive. Le luxe commence ici.</h1>
+      </div>
   </div>
-</div>
 
-  <!-- 🎥 Desktop : vidéo -->
-  <video id="intro-video"
-    autoplay
-    muted
-    playsinline
-    webkit-playsinline
-    preload="auto"
-    class="intro-media desktop-only">
-    <source src="videos/pov-rsdrive.mp4" type="video/mp4">
-    Votre navigateur ne supporte pas la vidéo.
-  </video>
+    <video id="intro-video"
+      autoplay muted playsinline webkit-playsinline preload="auto">
+      <source src="videos/pov-rsdrive.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la vidéo.
+    </video>
 
-  <!-- 🖼 Mobile : GIF -->
-  <img src="images/pov-rsdrive.gif" alt="Intro RsDrive" class="intro-media mobile-only" />
+    <div class="video-overlay"></div>
+  </div>
 
-  <div class="video-overlay"></div>
-</div>
-  
-  <div class="video-overlay"></div>
-</div>
 
     <header class="header">
     <div class="container header-inner">
@@ -1188,39 +1262,6 @@ if (hamburgerMenu && mobileNav) {
   window.addEventListener('load', revealOnScroll);
 </script>
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const intro = document.getElementById('video-intro');
-    const overlay = document.querySelector('.video-overlay');
-    const isMobile = window.innerWidth <= 768;
-
-    // 🎥 Animation zoom UNIQUEMENT pour desktop
-    if (!isMobile) {
-      setTimeout(() => {
-        intro.classList.add('zoom-in');
-      }, 100);
-
-      setTimeout(() => {
-        intro.classList.remove('zoom-in');
-        intro.classList.add('zoom-out');
-        overlay.classList.add('blur');
-      }, 1300);
-    }
-
-    // ✅ Cache l'intro après un délai (même sur mobile)
-    setTimeout(() => {
-      document.body.classList.add('video-done');
-    }, isMobile ? 1300 : 2200);
-  });
-
-  window.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-    document.getElementById('intro-screen').classList.add('fade-out');
-  }, 2200); // ⏳ durée avant disparition
-});
-</script>
-</script>
-
-<script>
   const video = document.getElementById("intro-video");
   const logo = document.getElementById("rsdrive-logo");
   const text = document.getElementById("intro-text");
@@ -1275,8 +1316,73 @@ if (hamburgerMenu && mobileNav) {
     });
   }, 400);
 })();
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const video = document.getElementById('intro-video');
+  const introScreen = document.getElementById('intro-screen');
+
+  // Dès que la vidéo se termine ➜ fade-out
+  video.addEventListener('ended', () => {
+    introScreen.classList.add('fade-out');
+    setTimeout(() => {
+      introScreen.style.display = 'none'; // supprime l’élément après fade
+    }, 1000); // le temps que l’animation fade-out se termine
+  });
+});
+
 </script>
 
+
+<script>
+    // 🎯 Animation intro
+    window.addEventListener('DOMContentLoaded', () => {
+      const intro = document.getElementById('video-intro');
+      const overlay = document.querySelector('.video-overlay');
+      const isMobile = window.innerWidth <= 768;
+
+      if (!isMobile) {
+        // ✅ Animation zoom pour desktop uniquement
+        setTimeout(() => { intro.classList.add('zoom-in'); }, 100);
+        setTimeout(() => {
+          intro.classList.remove('zoom-in');
+          intro.classList.add('zoom-out');
+          overlay.classList.add('blur');
+        }, 1300);
+      }
+
+      // ✅ Fin de l’intro : disparition de la vidéo
+      setTimeout(() => {
+        document.body.classList.add('video-done');
+      }, isMobile ? 1300 : 2200);
+    });
+
+    // 🎥 Forcer lecture vidéo mobile iOS
+    (function () {
+      const video = document.getElementById('intro-video');
+      if (!video) return;
+
+      video.setAttribute('muted', 'true');
+      video.setAttribute('playsinline', 'true');
+      video.setAttribute('webkit-playsinline', 'true');
+      video.muted = true;
+
+      // 🔁 Essayer lecture auto
+      const tryPlay = () => { video.play().catch(() => {}); };
+      tryPlay();
+
+      const kickOff = () => {
+        tryPlay();
+        window.removeEventListener('touchstart', kickOff);
+        window.removeEventListener('click', kickOff);
+        window.removeEventListener('scroll', kickOff);
+      };
+
+      window.addEventListener('touchstart', kickOff, { once: true });
+      window.addEventListener('click', kickOff, { once: true });
+      window.addEventListener('scroll', kickOff, { once: true });
+    })();
+  </script>
 
 </body>
 </html>
